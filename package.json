@@ -1,0 +1,29 @@
+{
+  "name": "childcaremani",
+  "version": "1.0.0",
+  "description": "",
+  "main": "new-pages.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maneesha9177/smart-child-care-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/maneesha9177/smart-child-care-system/issues"
+  },
+  "homepage": "https://github.com/maneesha9177/smart-child-care-system#readme",
+  "dependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/react-router-dom": "^5.3.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.14.0"
+  }
+}

@@ -1,0 +1,11 @@
+SECRET_KEY=smartchildcare_prod_2024_secure_key_change_in_production
+DATABASE_URL=sqlite:///smartchildcare.db
+FLASK_ENV=production
+API_BASE=http://localhost:5000
+DEBUG=False
+
+# Twilio SMS Configuration
+TWILIO_ACCOUNT_SID=your_twilio_account_sid_here
+TWILIO_AUTH_TOKEN=your_twilio_auth_token_here
+TWILIO_PHONE_NUMBER=+1234567890
+

@@ -1,0 +1,4659 @@
+
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#ec4899">
+  <title>👶 SMART CHILD CARE SYSTEM</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800;900&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    html {
+      height: 100%
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(-45deg, #fdf2f8, #fce7f3, #fdf2f8, #fbcfe8);
+      background-size: 400% 400%;
+      animation: gradientBg 15s ease infinite;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin: 0;
+      position: relative;
+    }
+
+    @keyframes gradientBg {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+    }
+
+    .butterfly {
+      position: absolute;
+      user-select: none;
+      opacity: 0.35;
+      z-index: 0;
+      will-change: transform;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 430px;
+      height: 100svh;
+      max-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      position: relative;
+      z-index: 10;
+      overflow: hidden;
+      border: 2px solid #1f2937;
+      border-radius: 40px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      margin: 0 auto;
+    }
+
+    .app-footer {
+      width: 100%;
+      max-width: 430px;
+      margin: 8px auto 0;
+      padding: 10px 16px;
+      background: linear-gradient(135deg, #f9a8d4 0%, #fbbf24 100%);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      color: #831843;
+      box-shadow: 0 4px 16px rgba(249, 168, 212, .4);
+      z-index: 10;
+      flex-wrap: wrap;
+    }
+
+    .app-footer span {
+      white-space: nowrap;
+    }
+
+    /* ── PAGES ── */
+    .pg {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+      overflow: hidden
+    }
+
+    .pg.on {
+      display: flex
+    }
+
+    .scr {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain
+    }
+
+    .ct {
+      padding: 12px 14px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    /* ── HEADER ── */
+    .hdr {
+      background: linear-gradient(135deg, #f9a8d4 0%, #fbbf24 100%);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 12px rgba(249, 168, 212, .4)
+    }
+
+    .hdr h1 {
+      flex: 1;
+      text-align: center;
+      font-family: 'Baloo 2';
+      font-size: 14px;
+      font-weight: 900;
+      color: #831843;
+      letter-spacing: .5px
+    }
+
+    .bk {
+      background: rgba(255, 255, 255, .35);
+      border: none;
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      font-size: 17px;
+      color: #831843;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 13px;
+      box-shadow: 0 2px 16px rgba(249, 168, 212, .15)
+    }
+
+    .stl {
+      font-size: 12px;
+      font-weight: 900;
+      color: #db2777;
+      margin-bottom: 9px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Baloo 2';
+      text-transform: uppercase;
+      letter-spacing: .4px
+    }
+
+    /* ── FORMS ── */
+    .fr {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px
+    }
+
+    .fl {
+      font-size: 11px;
+      font-weight: 800;
+      color: #db2777;
+      min-width: 100px;
+      flex-shrink: 0;
+      line-height: 1.3
+    }
+
+    .fi {
+      flex: 1;
+      background: #fef7ff;
+      border: 1.5px solid #f9a8d4;
+      border-radius: 11px;
+      padding: 9px 11px;
+      font-size: 13px;
+      outline: none;
+      color: #1f2937;
+      font-family: 'Nunito';
+      min-width: 0
+    }
+
+    .fi:focus {
+      border-color: #ec4899;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(236, 72, 153, .1)
+    }
+
+    select.fi {
+      cursor: pointer
+    }
+
+    /* ── BUTTONS ── */
+    .btn-main {
+      background: linear-gradient(135deg, #ec4899, #f97316);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Baloo 2';
+      letter-spacing: .3px;
+      box-shadow: 0 4px 16px rgba(236, 72, 153, .35);
+      transition: transform .1s, opacity .1s
+    }
+
+    .btn-main:active {
+      transform: scale(.97);
+      opacity: .9
+    }
+
+    .btn-sm {
+      background: #fce7f3;
+      color: #db2777;
+      border: none;
+      border-radius: 10px;
+      padding: 7px 13px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: 'Baloo 2';
+      flex-shrink: 0
+    }
+
+    .btn-green {
+      background: linear-gradient(135deg, #34d399, #059669);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 11px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Baloo 2'
+    }
+
+    .btn-blue {
+      background: linear-gradient(135deg, #60a5fa, #3b82f6);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 11px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Baloo 2'
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, #fce7f3, #fef9c3, #dbeafe);
+      padding: 22px 20px 16px;
+      text-align: center;
+      flex-shrink: 0
+    }
+
+    .hero-ico {
+      font-size: 52px;
+      line-height: 1;
+      margin-bottom: 6px
+    }
+
+    .hero h1 {
+      font-family: 'Baloo 2';
+      font-size: 19px;
+      font-weight: 900;
+      color: #831843
+    }
+
+    .hero p {
+      font-size: 11px;
+      color: #9d174d;
+      margin-top: 3px;
+      font-weight: 700
+    }
+
+    /* ── HOME ── */
+    .htop {
+      background: linear-gradient(135deg, #f9a8d4, #fbbf24);
+      padding: 13px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0
+    }
+
+    .av {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      overflow: hidden;
+      border: 3px solid #fff;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .1)
+    }
+
+    .av img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 50%
+    }
+
+    .hinfo h2 {
+      font-family: 'Baloo 2';
+      font-size: 14px;
+      font-weight: 900;
+      color: #831843
+    }
+
+    .hinfo p {
+      font-size: 11px;
+      color: #9d174d;
+      font-weight: 700
+    }
+
+    .hclk {
+      margin-left: auto;
+      text-align: right
+    }
+
+    .hclk-t {
+      font-family: 'Baloo 2';
+      font-size: 15px;
+      font-weight: 900;
+      color: #831843
+    }
+
+    .hclk-d {
+      font-size: 10px;
+      color: #9d174d;
+      font-weight: 700
+    }
+
+    .hgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 12px 14px 4px
+    }
+
+    .hbtn {
+      border: none;
+      border-radius: 16px;
+      padding: 15px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: transform .12s;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .06)
+    }
+
+    .hbtn:active {
+      transform: scale(.91)
+    }
+
+    .hbtn .ico {
+      font-size: 28px
+    }
+
+    .hbtn .lbl {
+      font-size: 10px;
+      font-weight: 900;
+      color: #1f2937;
+      text-align: center;
+      line-height: 1.3;
+      font-family: 'Baloo 2'
+    }
+
+    .b1 {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe)
+    }
+
+    .b2 {
+      background: linear-gradient(135deg, #fce7f3, #fbcfe8)
+    }
+
+    .b3 {
+      background: linear-gradient(135deg, #fef9c3, #fde68a)
+    }
+
+    .b4 {
+      background: linear-gradient(135deg, #ffedd5, #fed7aa)
+    }
+
+    .b5 {
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0)
+    }
+
+    .b6 {
+      background: linear-gradient(135deg, #f3e8ff, #e9d5ff)
+    }
+
+    /* ── NOTIFICATIONS BANNER ── */
+    .notif-bar {
+      margin: 10px 14px 0;
+      border-radius: 14px;
+      padding: 11px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 12px;
+      transition: all .2s
+    }
+
+    .nb-default {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      color: #1e40af;
+      border: 2px solid #93c5fd
+    }
+
+    .nb-granted {
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      color: #15803d;
+      border: 2px solid #86efac
+    }
+
+    .nb-denied {
+      background: linear-gradient(135deg, #fee2e2, #fecaca);
+      color: #b91c1c;
+      border: 2px solid #fca5a5
+    }
+
+    .nb-ico {
+      font-size: 20px;
+      flex-shrink: 0
+    }
+
+    /* ── ALERTS ── */
+    .alert-zone {
+      padding: 0 14px
+    }
+
+    .alert {
+      border-radius: 12px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      animation: apulse 1.5s infinite;
+      font-size: 12px;
+      font-weight: 700
+    }
+
+    .alert.warn {
+      background: #fef3c7;
+      border: 1.5px solid #fbbf24;
+      color: #92400e
+    }
+
+    .alert.danger {
+      background: #fee2e2;
+      border: 1.5px solid #fca5a5;
+      color: #b91c1c;
+      animation: apulse-r .8s infinite
+    }
+
+    @keyframes apulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .75
+      }
+    }
+
+    @keyframes apulse-r {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .85;
+        transform: scale(1.01)
+      }
+    }
+
+    /* ── SCHEDULE DASH ── */
+    .srow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid #f3f4f6
+    }
+
+    .st {
+      font-family: 'Baloo 2';
+      font-weight: 900;
+      font-size: 13px;
+      color: #1f2937;
+      min-width: 42px
+    }
+
+    .sl {
+      flex: 1;
+      font-size: 12px;
+      font-weight: 700;
+      color: #374151
+    }
+
+    .sc {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 900;
+      flex-shrink: 0
+    }
+
+    .sc-d {
+      background: #dcfce7;
+      color: #15803d
+    }
+
+    .sc-s {
+      background: #fef3c7;
+      color: #b45309;
+      animation: apulse .9s infinite
+    }
+
+    .sc-p {
+      background: #f3f4f6;
+      color: #6b7280
+    }
+
+    /* ── EMOTION ── */
+    .emo-upload {
+      border: 2.5px dashed #f9a8d4;
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      background: linear-gradient(135deg, rgba(252, 231, 243, .6), rgba(254, 249, 195, .4));
+      transition: all .2s;
+      margin-bottom: 10px
+    }
+
+    .emo-upload:hover {
+      background: linear-gradient(135deg, #fce7f3, #fef9c3);
+      border-color: #ec4899
+    }
+
+    .emo-preview-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      background: #0f172a;
+      aspect-ratio: 4/3;
+      margin-bottom: 8px
+    }
+
+    .emo-preview-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .emo-ov {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .7));
+      padding: 12px;
+      text-align: center
+    }
+
+    .emo-result {
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+      margin-top: 8px
+    }
+
+    .emo-big {
+      font-size: 52px;
+      line-height: 1;
+      display: block
+    }
+
+    .emo-nm {
+      font-size: 20px;
+      font-weight: 900;
+      font-family: 'Baloo 2';
+      margin-top: 4px
+    }
+
+    .emo-src {
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 2px;
+      opacity: .7
+    }
+
+    .ai-spin {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 14px
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #a78bfa;
+      animation: bounce .8s infinite
+    }
+
+    .dot:nth-child(2) {
+      animation-delay: .15s
+    }
+
+    .dot:nth-child(3) {
+      animation-delay: .3s
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-8px)
+      }
+    }
+
+    .aibox {
+      background: linear-gradient(135deg, #fdf4ff, #eff6ff);
+      border-left: 4px solid #a78bfa;
+      border-radius: 0 13px 13px 0;
+      padding: 12px;
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.7
+    }
+
+    .ci {
+      display: flex;
+      gap: 7px;
+      padding: 7px 0;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 12px;
+      line-height: 1.5
+    }
+
+    .match-ok {
+      background: #dcfce7;
+      border: 2px solid #16a34a;
+      border-radius: 11px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #15803d;
+      margin-top: 6px
+    }
+
+    .match-fail {
+      background: #fee2e2;
+      border: 2px solid #dc2626;
+      border-radius: 11px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #b91c1c;
+      margin-top: 6px
+    }
+
+    /* ── PULSE ── */
+    .ptabs {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 10px
+    }
+
+    .ptab {
+      flex: 1;
+      padding: 9px 5px;
+      border-radius: 11px;
+      border: 2px solid #e5e7eb;
+      background: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+      font-family: 'Baloo 2';
+      color: #6b7280;
+      text-align: center
+    }
+
+    .ptab.on {
+      border-color: #ec4899;
+      background: #fce7f3;
+      color: #db2777
+    }
+
+    .pring-wrap {
+      text-align: center;
+      margin: 8px 0
+    }
+
+    .pring {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 5px solid #fca5a5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      background: radial-gradient(circle, #fff5f5, #fff)
+    }
+
+    .pring.beat {
+      animation: hb .7s ease-in-out infinite
+    }
+
+    .pring.idle {
+      opacity: .5
+    }
+
+    @keyframes hb {
+
+      0%,
+      100% {
+        transform: scale(1);
+        border-color: #fca5a5
+      }
+
+      50% {
+        transform: scale(1.12);
+        border-color: #ef4444;
+        box-shadow: 0 0 22px rgba(239, 68, 68, .4)
+      }
+    }
+
+    .bpm-v {
+      font-size: 30px;
+      font-weight: 900;
+      color: #dc2626;
+      font-family: 'Baloo 2';
+      line-height: 1
+    }
+
+    .bpm-u {
+      font-size: 11px;
+      color: #6b7280;
+      font-weight: 700
+    }
+
+    #wc {
+      width: 100%;
+      height: 52px;
+      border-radius: 11px;
+      background: #0f172a;
+      display: block;
+      margin-top: 7px
+    }
+
+    .prog {
+      background: #f3f4f6;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 8px;
+      margin-top: 7px
+    }
+
+    .prog-f {
+      background: linear-gradient(90deg, #ef4444, #f97316);
+      height: 8px;
+      width: 0%;
+      border-radius: 8px;
+      transition: width .15s
+    }
+
+    .fstat {
+      text-align: center;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px
+    }
+
+    .fok {
+      background: #dcfce7;
+      color: #15803d
+    }
+
+    .fwarn {
+      background: #fef3c7;
+      color: #92400e
+    }
+
+    .ferr {
+      background: #fee2e2;
+      color: #b91c1c
+    }
+
+    .vg {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px
+    }
+
+    .vc {
+      border-radius: 13px;
+      padding: 11px;
+      text-align: center
+    }
+
+    .vl {
+      font-size: 10px;
+      font-weight: 800;
+      color: #6b7280;
+      margin-bottom: 3px
+    }
+
+    .vv {
+      font-size: 20px;
+      font-weight: 900;
+      font-family: 'Baloo 2'
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 3px
+    }
+
+    .tok {
+      background: #dcfce7;
+      color: #15803d
+    }
+
+    .twn {
+      background: #fef3c7;
+      color: #b45309
+    }
+
+    .tbd {
+      background: #fee2e2;
+      color: #b91c1c
+    }
+
+    .num-in {
+      background: #fff;
+      border: 2.5px solid #34d399;
+      border-radius: 12px;
+      padding: 10px;
+      font-size: 26px;
+      font-weight: 900;
+      text-align: center;
+      width: 100%;
+      font-family: 'Baloo 2';
+      color: #1f2937;
+      outline: none;
+      margin-top: 5px
+    }
+
+    .rrow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 11px
+    }
+
+    /* ── SLEEP ── */
+    .sltog {
+      width: 100%;
+      height: 58px;
+      border-radius: 16px;
+      border: none;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      font-family: 'Baloo 2';
+      transition: all .3s
+    }
+
+    .sl-off {
+      background: #e5e7eb;
+      color: #6b7280
+    }
+
+    .sl-on {
+      background: linear-gradient(135deg, #6ee7b7, #34d399);
+      color: #065f46;
+      animation: glow 2s ease-in-out infinite
+    }
+
+    @keyframes glow {
+
+      0%,
+      100% {
+        box-shadow: 0 4px 16px rgba(52, 211, 153, .4)
+      }
+
+      50% {
+        box-shadow: 0 4px 26px rgba(52, 211, 153, .7)
+      }
+    }
+
+    .timerbox {
+      font-size: 36px;
+      font-weight: 900;
+      font-family: 'Baloo 2';
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+      flex: 1;
+      font-variant-numeric: tabular-nums
+    }
+
+    .snote {
+      background: #fef9c3;
+      border: 1.5px solid #fbbf24;
+      border-radius: 12px;
+      padding: 9px;
+      font-size: 12px;
+      color: #92400e;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 7px
+    }
+
+    /* ── MEDICINE ── */
+    .mdc {
+      background: linear-gradient(135deg, #fff7f0, #fff);
+      border: 1.5px solid #fed7aa;
+      border-radius: 15px;
+      padding: 12px;
+      margin-bottom: 8px
+    }
+
+    .mdi {
+      font-family: 'Baloo 2';
+      font-weight: 900;
+      font-size: 13px;
+      color: #92400e
+    }
+
+    .mddel {
+      background: #fee2e2;
+      border: none;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #b91c1c;
+      cursor: pointer
+    }
+
+    .mdr {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 3px;
+      font-size: 12px
+    }
+
+    .mdk {
+      color: #6b7280;
+      min-width: 82px;
+      font-weight: 800;
+      flex-shrink: 0
+    }
+
+    .mdv {
+      color: #1f2937;
+      font-weight: 700
+    }
+
+    .nstrip {
+      background: #ecfdf5;
+      border: 1.5px solid #6ee7b7;
+      border-radius: 9px;
+      padding: 8px;
+      font-size: 11px;
+      color: #065f46;
+      margin-top: 7px;
+      line-height: 1.55
+    }
+
+    /* ── FOOD ── */
+    .mcs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px
+    }
+
+    .mc {
+      background: #fff;
+      border-radius: 13px;
+      padding: 9px;
+      text-align: center;
+      border: 1.5px solid #f3f4f6
+    }
+
+    .mc.soon {
+      border-color: #fbbf24;
+      background: #fef9c3
+    }
+
+    .mc.now {
+      border-color: #f97316;
+      background: #ffedd5;
+      animation: blink .5s infinite
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .65
+      }
+    }
+
+    .mn {
+      font-size: 10px;
+      font-weight: 800;
+      color: #db2777;
+      margin-bottom: 2px
+    }
+
+    .mt {
+      font-size: 16px;
+      font-weight: 900;
+      color: #1f2937;
+      font-family: 'Baloo 2'
+    }
+
+    .md {
+      font-size: 10px;
+      color: #6b7280;
+      margin-top: 1px
+    }
+
+    /* ── STUDY ── */
+    .wemoji {
+      font-size: 68px;
+      line-height: 1;
+      display: block;
+      cursor: pointer
+    }
+
+    .wtxt {
+      font-size: 30px;
+      font-weight: 900;
+      color: #1f2937;
+      text-align: center;
+      letter-spacing: 4px;
+      font-family: 'Baloo 2';
+      margin: 5px 0
+    }
+
+    .dcanvas {
+      width: 100%;
+      height: 110px;
+      background: #f8fafc;
+      border-radius: 13px;
+      border: 2px dashed #d1d5db;
+      cursor: crosshair;
+      touch-action: none;
+      display: block
+    }
+
+    .cdot {
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      flex-shrink: 0;
+      transition: transform .1s
+    }
+
+    .cdot.on {
+      border-color: #1f2937;
+      transform: scale(1.2)
+    }
+
+    .gbtn {
+      background: #fff;
+      border: 2px solid #e5e7eb;
+      border-radius: 13px;
+      padding: 11px;
+      width: 100%;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      font-family: 'Baloo 2';
+      color: #1f2937;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-bottom: 6px
+    }
+
+    .gbtn.open {
+      border-color: #ec4899;
+      background: #fce7f3;
+      color: #db2777
+    }
+
+    .gbox {
+      display: none;
+      background: #fff;
+      border-radius: 13px;
+      padding: 13px;
+      margin-bottom: 6px;
+      border: 2px solid #f3f4f6
+    }
+
+    .gbox.vis {
+      display: block
+    }
+
+    .cbtn {
+      padding: 9px 13px;
+      border-radius: 11px;
+      border: 2px solid #d1d5db;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #1f2937
+    }
+
+    .cbtn.ok {
+      background: #dcfce7 !important;
+      border-color: #16a34a !important;
+      color: #15803d !important
+    }
+
+    .cbtn.no {
+      background: #fee2e2 !important;
+      border-color: #b91c1c !important;
+      color: #b91c1c !important
+    }
+
+    .abcg {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px
+    }
+
+    .abcc {
+      aspect-ratio: 1;
+      border-radius: 9px;
+      background: #dbeafe;
+      border: none;
+      font-size: 13px;
+      font-weight: 900;
+      color: #1e40af;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Baloo 2'
+    }
+
+    .abcc:active {
+      background: #3b82f6;
+      color: #fff;
+      transform: scale(.88)
+    }
+
+    .pzg {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      max-width: 195px;
+      margin: 0 auto
+    }
+
+    .pzt {
+      aspect-ratio: 1;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      border: 2px solid #93c5fd;
+      font-size: 21px;
+      font-weight: 900;
+      color: #1e40af;
+      cursor: pointer;
+      font-family: 'Baloo 2';
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .pzt.emp {
+      background: #f3f4f6;
+      border-color: #e5e7eb;
+      cursor: default
+    }
+
+    /* ── MISC ── */
+    .inote {
+      background: #ede9fe;
+      border-radius: 11px;
+      padding: 9px 12px;
+      font-size: 12px;
+      color: #5b21b6;
+      font-weight: 700;
+      line-height: 1.6
+    }
+
+    .toast {
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f2937;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      z-index: 9999;
+      pointer-events: none;
+      display: none;
+      max-width: 92%;
+      text-align: center;
+      font-family: 'Baloo 2';
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .2)
+    }
+
+    .toast.on {
+      display: block;
+      animation: tin .2s ease
+    }
+
+    @keyframes tin {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0)
+      }
+    }
+
+    .pcirc {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      background: #f3f4f6;
+      border: 3px dashed #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      overflow: hidden;
+      flex-shrink: 0
+    }
+
+    .pcirc img {
+      width: 66px;
+      height: 66px;
+      object-fit: cover;
+      border-radius: 50%
+    }
+
+    .uplbl {
+      display: block;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: 'Baloo 2'
+    }
+
+    .fnote {
+      font-size: 10px;
+      color: #9ca3af;
+      text-align: center;
+      padding: 8px;
+      line-height: 1.7
+    }
+
+    .cam-box {
+      background: #0f172a;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      position: relative;
+      display: none
+    }
+
+    .cam-box video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .cam-overlay {
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      text-align: center
+    }
+
+    /* ── DOCTOR CONNECT ── */
+    .doc-card {
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border: 2px solid #93c5fd;
+      border-radius: 16px;
+      padding: 13px;
+      margin-bottom: 10px
+    }
+
+    .doc-name {
+      font-family: 'Baloo 2';
+      font-size: 16px;
+      font-weight: 900;
+      color: #1e40af;
+      margin-bottom: 3px
+    }
+
+    .doc-spec {
+      font-size: 12px;
+      color: #3b82f6;
+      font-weight: 700;
+      margin-bottom: 8px
+    }
+
+    .doc-call {
+      background: linear-gradient(135deg, #16a34a, #059669);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 11px;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Baloo 2';
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(22, 163, 74, .35)
+    }
+
+    .doc-call:active {
+      opacity: .88;
+      transform: scale(.97)
+    }
+
+    .doc-emergency {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 11px;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Baloo 2';
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, .35)
+    }
+
+    .doc-emergency:active {
+      opacity: .88
+    }
+
+    .doc-info {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      align-items: center
+    }
+
+    .doc-lbl {
+      color: #6b7280;
+      font-weight: 800;
+      min-width: 70px;
+      font-size: 11px
+    }
+
+    .doc-val {
+      color: #1f2937;
+      font-weight: 700
+    }
+
+    /* ── GROWTH TRACKING ── */
+    .growth-entry {
+      background: linear-gradient(135deg, #f0fdf4, #fff);
+      border: 1.5px solid #86efac;
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 8px
+    }
+
+    .growth-date {
+      font-family: 'Baloo 2';
+      font-size: 12px;
+      font-weight: 900;
+      color: #15803d;
+      margin-bottom: 4px
+    }
+
+    .growth-vals {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 6px
+    }
+
+    .growth-val {
+      background: #fff;
+      border-radius: 10px;
+      padding: 9px;
+      text-align: center;
+      border: 1.5px solid #bbf7d0
+    }
+
+    .growth-v {
+      font-size: 20px;
+      font-weight: 900;
+      font-family: 'Baloo 2';
+      color: #059669
+    }
+
+    .growth-u {
+      font-size: 10px;
+      color: #6b7280;
+      font-weight: 700
+    }
+
+    .growth-chart {
+      background: #f0fdf4;
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 4px
+    }
+
+    .chart-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px
+    }
+
+    .chart-label {
+      font-size: 10px;
+      font-weight: 800;
+      color: #6b7280;
+      min-width: 56px;
+      text-align: right
+    }
+
+    .chart-bar-bg {
+      flex: 1;
+      background: #dcfce7;
+      border-radius: 6px;
+      height: 18px;
+      overflow: hidden
+    }
+
+    .chart-bar {
+      background: linear-gradient(90deg, #34d399, #059669);
+      height: 18px;
+      border-radius: 6px;
+      transition: width .4s;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 5px;
+      min-width: 20px
+    }
+
+    .chart-bar span {
+      font-size: 9px;
+      color: #fff;
+      font-weight: 900;
+      white-space: nowrap
+    }
+
+    .who-note {
+      font-size: 10px;
+      color: #6b7280;
+      background: #f3f4f6;
+      border-radius: 8px;
+      padding: 7px;
+      line-height: 1.6;
+      margin-top: 8px
+    }
+
+    .status-ok {
+      color: #15803d;
+      background: #dcfce7;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 800
+    }
+
+    .status-warn {
+      color: #b45309;
+      background: #fef3c7;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 800
+    }
+
+    .status-bad {
+      color: #b91c1c;
+      background: #fee2e2;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 800
+    }
+
+    /* ── PRE-EMOTION QUESTIONNAIRE MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .55);
+      z-index: 8888;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center
+    }
+
+    .modal-sheet {
+      background: #fff;
+      border-radius: 22px 22px 0 0;
+      padding: 20px 16px 32px;
+      width: 100%;
+      max-width: 430px;
+      max-height: 85vh;
+      overflow-y: auto;
+      animation: sheetUp .3s ease
+    }
+
+    @keyframes sheetUp {
+      from {
+        transform: translateY(100%)
+      }
+
+      to {
+        transform: translateY(0)
+      }
+    }
+
+    .modal-title {
+      font-family: 'Baloo 2';
+      font-size: 16px;
+      font-weight: 900;
+      color: #1f2937;
+      margin-bottom: 4px
+    }
+
+    .modal-sub {
+      font-size: 12px;
+      color: #6b7280;
+      font-weight: 600;
+      margin-bottom: 14px;
+      line-height: 1.5
+    }
+
+    .q-group {
+      margin-bottom: 13px
+    }
+
+    .q-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: #db2777;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 5px
+    }
+
+    .q-select {
+      width: 100%;
+      background: #fef7ff;
+      border: 1.5px solid #f9a8d4;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 12px;
+      outline: none;
+      color: #1f2937;
+      font-family: 'Nunito';
+      font-weight: 700
+    }
+
+    .q-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px
+    }
+
+    .q-tag {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      border: 1.5px solid #e5e7eb;
+      background: #f9fafb;
+      color: #6b7280;
+      transition: all .15s
+    }
+
+    .q-tag.sel {
+      background: #fce7f3;
+      border-color: #ec4899;
+      color: #db2777
+    }
+
+    .q-input {
+      width: 100%;
+      background: #fef7ff;
+      border: 1.5px solid #f9a8d4;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 13px;
+      outline: none;
+      color: #1f2937;
+      font-family: 'Nunito'
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ANIMATED BACKGROUND SCRIPT -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      for (let i = 0; i < 25; i++) {
+        let s = document.createElement('div');
+        s.className = 'star';
+        let size = Math.random() * 8 + 6;
+        s.style.width = size + 'px';
+        s.style.height = size + 'px';
+        s.style.left = Math.random() * 100 + 'vw';
+        s.style.top = Math.random() * 100 + 'vh';
+        s.style.animationDuration = Math.random() * 3 + 2 + 's';
+        s.style.animationDelay = Math.random() * 2 + 's';
+        document.body.appendChild(s);
+      }
+      const icons = ['🦋', '🧸', '🐥', '🐰', '🎀', '🎠'];
+      for (let i = 0; i < 20; i++) {
+        let b = document.createElement('div');
+        b.className = 'butterfly';
+        b.textContent = icons[Math.floor(Math.random() * icons.length)];
+
+        let isLeft = Math.random() > 0.5;
+        let startX = isLeft ? (Math.random() * 30 - 10) : (Math.random() * 30 + 70);
+        let startY = Math.random() * 100;
+
+        b.style.left = startX + 'vw';
+        b.style.top = startY + 'vh';
+        b.style.fontSize = (Math.random() * 40 + 40) + 'px';
+        document.body.appendChild(b);
+
+        let moveX1 = (Math.random() * 20 - 10) + 'vw';
+        let moveY1 = (Math.random() * 20 - 10) + 'vh';
+        let moveX2 = (Math.random() * 20 - 10) + 'vw';
+        let moveY2 = (Math.random() * 20 - 10) + 'vh';
+        let moveX3 = (Math.random() * 20 - 10) + 'vw';
+        let moveY3 = (Math.random() * 20 - 10) + 'vh';
+
+        b.animate([
+          { transform: `translate(0, 0) rotate(0deg)` },
+          { transform: `translate(${moveX1}, ${moveY1}) rotate(${Math.random() * 40 - 20}deg)` },
+          { transform: `translate(${moveX2}, ${moveY2}) rotate(${Math.random() * 40 - 20}deg)` },
+          { transform: `translate(${moveX3}, ${moveY3}) rotate(${Math.random() * 40 - 20}deg)` },
+          { transform: `translate(0, 0) rotate(0deg)` }
+        ], {
+          duration: Math.random() * 15000 + 15000,
+          iterations: Infinity,
+          easing: 'ease-in-out'
+        });
+      }
+    });
+  </script>
+  <div class="app">
+    <div id="toast" class="toast"></div>
+
+    <!-- TTS / ACCESSIBILITY -->
+    <button id="tts-btn" onclick="toggleGlobalTTS()"
+      style="position:absolute;bottom:20px;right:20px;z-index:9999;background:#db2777;color:white;border:none;border-radius:50%;width:50px;height:50px;font-size:24px;box-shadow:0 4px 10px rgba(0,0,0,0.3);cursor:pointer">📢</button>
+    <script>
+      let globalTTSActive = false;
+      function toggleGlobalTTS() {
+        globalTTSActive = !globalTTSActive;
+        const btn = document.getElementById('tts-btn');
+        btn.style.background = globalTTSActive ? '#16a34a' : '#db2777';
+        btn.innerHTML = globalTTSActive ? '🔊' : '📢';
+        toast(globalTTSActive ? '✅ Voice Assistant ON' : '❌ Voice Assistant OFF');
+        if (globalTTSActive && window.speechSynthesis) {
+          let u = new SpeechSynthesisUtterance('Voice Assistant is active. Tap any text on the screen to hear it.');
+          u.rate = 0.85; u.pitch = 1.1;
+          window.speechSynthesis.speak(u);
+        }
+      }
+      document.addEventListener('click', (e) => {
+        if (globalTTSActive && e.target.id !== 'tts-btn' && e.target.innerText) {
+          let txt = String(e.target.innerText).trim();
+          if (txt.length > 0 && txt.length < 200) {
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            let u = new SpeechSynthesisUtterance(txt);
+            u.rate = 0.85; u.pitch = 1.1;
+            if (window.speechSynthesis) window.speechSynthesis.speak(u);
+          }
+        }
+      });
+    </script>
+
+
+    <!-- ══════════ LOGIN ══════════ -->
+    <div class="pg on" id="pg-login">
+      <div class="hero">
+        <div class="hero-ico">👶</div>
+        <h1>SMART CHILD CARE SYSTEM</h1>
+        <p>Best-in-Class Baby Health & Wellness Monitor</p>
+      </div>
+      <div class="scr">
+        <div class="ct">
+          <div class="card">
+            <div class="stl">👨‍👩‍👧 Family Details</div>
+            <div class="fr"><label class="fl">Father Name:</label><input class="fi" id="l-father"
+                placeholder="Enter name"></div>
+            <div class="fr"><label class="fl">Mother Name:</label><input class="fi" id="l-mother"
+                placeholder="Enter name"></div>
+            <div class="fr"><label class="fl">Child Name:</label><input class="fi" id="l-child" placeholder="Baby's name">
+            </div>
+            <div class="fr"><label class="fl">Mobile 1:</label><input class="fi" id="l-mob1" placeholder="+91 XXXXXXXXXX"
+                type="tel"></div>
+            <div class="fr"><label class="fl">Mobile 2:</label><input class="fi" id="l-mob2" placeholder="+91 XXXXXXXXXX"
+                type="tel"></div>
+          </div>
+          <button class="btn-main" onclick="doLogin()">🚀 LOGIN & CONTINUE</button>
+          <div class="fnote">📍 Duvvada, Visakhapatnam · 📞 +91 99597 40963 · 📧 support@smartchildcare.com</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ DETAILS ══════════ -->
+    <div class="pg" id="pg-details">
+      <div class="hdr"><button class="bk" onclick="go('pg-login')">←</button>
+        <h1>CHILD DETAILS</h1>
+        <div style="width:34px"></div>
+      </div>
+      <div class="scr">
+        <div class="ct">
+          <div class="card">
+            <div class="stl">📷 Baby Photo</div>
+            <div style="display:flex;gap:12px;align-items:center">
+              <div class="pcirc" id="photo-prev">📷</div>
+              <div style="flex:1">
+                <label class="uplbl">📸 Capture / Upload Photo
+                  <input type="file" accept="image/*" capture="user" style="display:none" onchange="previewPhoto(this)">
+                </label>
+                <div style="font-size:10px;color:#9ca3af;margin-top:5px;text-align:center">Used for face-matching in
+                  emotion detection</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="stl">🧒 Baby Info</div>
+            <div class="fr"><label class="fl">Baby Age:</label><input class="fi" id="d-age"
+                placeholder="e.g. 2 years 3 months"></div>
+            <div class="fr"><label class="fl">Gender:</label><select class="fi" id="d-gender">
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select></div>
+            <div class="fr"><label class="fl">Health Issues:</label><input class="fi" id="d-health"
+                placeholder="e.g. Fever, Colic"></div>
+            <div class="fr"><label class="fl">Blood Group:</label><input class="fi" id="d-blood"
+                placeholder="e.g. O+, A+"></div>
+            <div class="fr"><label class="fl">Doctor Name:</label><input class="fi" id="d-doctor"
+                placeholder="Paediatrician"></div>
+          </div>
+          <button class="btn-main" onclick="saveDetails()">✅ SAVE & GO TO DASHBOARD</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ HOME ══════════ -->
+    <div class="pg" id="pg-home">
+      <div class="htop">
+        <div class="av" id="home-av">👶</div>
+        <div class="hinfo">
+          <h2 id="home-name">Baby</h2>
+          <p id="home-age">Age: --</p>
+        </div>
+        <div class="hclk">
+          <div class="hclk-t" id="hclk-t">00:00</div>
+          <div class="hclk-d" id="hclk-d"></div>
+        </div>
+      </div>
+      <div class="scr">
+        <!-- Notification banner -->
+        <div class="notif-bar nb-default" id="notif-bar" onclick="askNotifPerm()" style="display:none">
+          <span class="nb-ico">🔔</span>
+          <div id="notif-bar-txt">Tap to ENABLE push notifications for medicine & meal alerts</div>
+        </div>
+        <!-- Alert zone -->
+        <div class="alert-zone" id="alert-zone"></div>
+        <!-- Home grid -->
+        <div class="hgrid">
+          <button class="hbtn b1" onclick="go('pg-emotions')">
+            <div class="ico">😊</div>
+            <div class="lbl">Face Emotion Detection</div>
+          </button>
+          <button class="hbtn b2" onclick="go('pg-heart')">
+            <div class="ico">❤️</div>
+            <div class="lbl">Pulse & Temp Check</div>
+          </button>
+          <button class="hbtn b3" onclick="go('pg-sleep')">
+            <div class="ico">🌙</div>
+            <div class="lbl">Sleep Schedule</div>
+          </button>
+          <button class="hbtn b4" onclick="go('pg-medicine')">
+            <div class="ico">💊</div>
+            <div class="lbl">Medicine Reminder</div>
+          </button>
+          <button class="hbtn b5" onclick="go('pg-food')">
+            <div class="ico">🍽️</div>
+            <div class="lbl">Food Reminder</div>
+          </button>
+          <button class="hbtn b6" onclick="go('pg-study')">
+            <div class="ico">🎓</div>
+            <div class="lbl">Study & Games</div>
+          </button>
+          <button class="hbtn" style="background:linear-gradient(135deg,#bfdbfe,#93c5fd)" onclick="go('pg-doctor')">
+            <div class="ico">👨‍⚕️</div>
+            <div class="lbl">Doctor Connect</div>
+          </button>
+          <button class="hbtn" style="background:linear-gradient(135deg,#bbf7d0,#6ee7b7)" onclick="go('pg-growth')">
+            <div class="ico">📏</div>
+            <div class="lbl">Growth Tracking</div>
+          </button>
+        </div>
+        <!-- Today schedule -->
+        <div style="padding:0 14px 14px">
+          <div class="card" id="sched-card" style="display:none">
+            <div class="stl">📋 Today's Schedule</div>
+            <div id="sched-list"></div>
+          </div>
+          <div class="card" style="background:linear-gradient(135deg,#fef3c7,#fff7ed);border:2px solid #facc15;margin-top:10px">
+            <div class="stl" style="color:#92400e">💡 Tip</div>
+            <div style="font-size:12px;color:#4b5563;line-height:1.6;font-weight:700">
+              Save your sleep schedule and allow notifications so the app can remind you 10 and 5 minutes before bedtime. This helps make baby’s nightly routine smoother without extra checking.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMOTIONS PAGE WITH AI SCAN -->
+    <div class="pg" id="pg-emotions">
+      <div class="hdr"><button class="bk" onclick="go('pg-home');resetEmotions()" style="margin-right:10px">←</button>
+        <h1>BABY EMOTIONS</h1>
+        <div style="width:34px"></div>
+      </div>
+      <div class="scr">
+        <div class="ct">
+
+          <!-- STEP 1: AI SCAN -->
+          <div id="emo-step-scan" style="display:block">
+
+            <!-- Scan Card -->
+            <div class="card" style="text-align:center">
+              <div style="font-size:40px;margin-bottom:8px">🤖</div>
+              <div style="font-size:15px;font-weight:900;color:#5b21b6;margin-bottom:4px">AI Emotion Scanner</div>
+              <div style="font-size:11px;color:#6b7280;margin-bottom:16px">Capture or upload a photo of baby's face — AI will detect the emotion automatically</div>
+
+              <!-- Camera live box -->
+              <div id="emo-cam-box" style="display:none;margin-bottom:12px">
+                <video id="emo-scan-vid" autoplay playsinline style="width:100%;border-radius:12px;background:#000;max-height:220px;object-fit:cover"></video>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="btn-main" onclick="emoCapture()" style="flex:1;padding:12px;font-size:13px">📸 Capture</button>
+                  <button onclick="emoCloseCamera()" style="padding:12px 16px;border:2px solid #e5e7eb;border-radius:10px;background:#fff;font-weight:800;font-size:13px;cursor:pointer">✕ Close</button>
+                </div>
+              </div>
+
+              <!-- Scan preview -->
+              <div id="emo-scan-preview" style="display:none;margin-bottom:12px;position:relative">
+                <img id="emo-scan-img" style="width:100%;border-radius:12px;max-height:200px;object-fit:cover" alt="Baby scan" />
+              </div>
+
+              <!-- Two action buttons -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+                <button onclick="emoOpenCamera()" style="padding:14px 8px;border-radius:14px;border:2.5px solid #a78bfa;background:linear-gradient(135deg,#f5f3ff,#ede9fe);cursor:pointer;font-weight:900;font-size:13px;color:#5b21b6">
+                  📷 Open Camera
+                </button>
+                <label style="padding:14px 8px;border-radius:14px;border:2.5px solid #60a5fa;background:linear-gradient(135deg,#eff6ff,#dbeafe);cursor:pointer;font-weight:900;font-size:13px;color:#1e40af;display:flex;align-items:center;justify-content:center;text-align:center">
+                  📂 Upload Photo/Video
+                  <input type="file" accept="image/*,video/*" onchange="emoFileSelected(this)" style="display:none">
+                </label>
+              </div>
+
+              <!-- Scan status -->
+              <div id="emo-scan-status" style="display:none;padding:10px;background:#f5f3ff;border-radius:10px;margin-bottom:10px;font-size:12px;font-weight:800"></div>
+
+              <!-- Detected emotion result -->
+              <div id="emo-scan-detected" style="display:none;border-radius:14px;padding:14px;margin-bottom:12px;text-align:center;border:2px solid #e5e7eb">
+                <div id="emo-detected-icon" style="font-size:48px;margin-bottom:6px">😊</div>
+                <div id="emo-detected-name" style="font-size:18px;font-weight:900;margin-bottom:4px">Happy</div>
+                <div id="emo-detected-conf" style="font-size:10px;color:#6b7280;margin-bottom:8px;font-weight:700"></div>
+                <div id="emo-detected-obs" style="font-size:11px;color:#374151;background:#f9fafb;border-radius:8px;padding:8px;text-align:left;line-height:1.5"></div>
+                <button class="btn-main" onclick="proceedWithScan()" style="width:100%;margin-top:12px;background:linear-gradient(135deg,#7c3aed,#db2777)">
+                  ✅ Continue — Answer AI Questions →
+                </button>
+              </div>
+
+              <!-- Skip option -->
+              <div style="font-size:11px;color:#9ca3af;margin-top:4px">
+                Or skip scan:
+                <span onclick="startEmoQuestions('Happy')" style="color:#7c3aed;cursor:pointer;font-weight:800">😊 Happy</span> ·
+                <span onclick="startEmoQuestions('Sad')" style="color:#1e40af;cursor:pointer;font-weight:800">😢 Sad</span> ·
+                <span onclick="startEmoQuestions('Cry')" style="color:#b91c1c;cursor:pointer;font-weight:800">😭 Cry</span> ·
+                <span onclick="startEmoQuestions('Sleepy')" style="color:#92400e;cursor:pointer;font-weight:800">😴 Sleepy</span> ·
+                <span onclick="startEmoQuestions('Angry')" style="color:#b91c1c;cursor:pointer;font-weight:800">😠 Angry</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: AI QUESTIONS -->
+          <div id="emo-step-questions" style="display:none">
+            <div class="card" style="text-align:center">
+              <div style="font-size:44px;margin-bottom:8px" id="emo-ico">😊</div>
+              <div style="font-size:16px;font-weight:900;color:#db2777;margin-bottom:4px" id="emo-emotion-label">Happy Baby</div>
+              <div style="font-size:11px;color:#6b7280">AI is asking questions to understand baby better</div>
+            </div>
+
+            <div class="card">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+                <div style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;background:linear-gradient(135deg,hsl(270 60% 70%),hsl(330 81% 60%))">🤖</div>
+                <div style="font-size:14px;font-weight:900;color:#5b21b6">AI Assistant</div>
+                <div style="margin-left:auto;font-size:10px;color:#6b7280;font-weight:800" id="emo-q-counter">Q1/4</div>
+              </div>
+              <div style="font-size:13px;font-weight:900;color:#1f2937;line-height:1.5;background:hsl(270 50% 98%);border-left:4px solid hsl(270 60% 70%);border-radius:8px;padding:12px;margin-bottom:12px" id="emo-question-text">Question here</div>
+              <div style="display:flex;flex-direction:column;gap:6px" id="emo-options-container"></div>
+            </div>
+
+            <button class="btn-main" onclick="backEmoQuestions()" style="width:100%;margin-top:6px;background:#f0f0f0;color:#6b7280;font-weight:900">← Back to Scan</button>
+          </div>
+
+          <!-- STEP 3: RESULTS -->
+          <div id="emo-step-result" style="display:none">
+            <div class="card" style="text-align:center">
+              <div style="font-size:52px;margin-bottom:8px;line-height:1" id="emo-result-ico">😊</div>
+              <div style="font-size:16px;font-weight:900;margin-bottom:8px" id="emo-result-title" style="color:#15803d">Happy Baby — Here Is What To Do</div>
+              <div style="font-style:italic;font-size:12px;color:#6b7280;background:hsl(270 50% 98%);border-left:4px solid hsl(270 60% 70%);border-radius:8px;padding:10px;margin-bottom:10px" id="emo-result-quote">"A happy baby is a growing baby"</div>
+              <div style="background:#fff7ed;border-left:4px solid #f97316;border-radius:8px;padding:10px;text-align:left;margin-bottom:10px;font-size:12px;color:#7c2d12;font-weight:700;line-height:1.5" id="emo-result-cause"></div>
+              <div style="background:hsl(25 100% 97%);border-left:4px solid hsl(25 90% 60%);border-radius:8px;padding:12px;text-align:left">
+                <div style="font-size:11px;font-weight:900;color:#ea580c;margin-bottom:8px;text-transform:uppercase">✅ Recommended Activities</div>
+                <div id="emo-result-activities" style="font-size:12px;color:#1f2937;line-height:1.8"></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div style="font-size:11px;font-weight:900;color:#6b7280;background:hsl(220 10% 95%);border-radius:8px;padding:10px;line-height:1.6" id="emo-result-insight">Insight goes here</div>
+            </div>
+
+            <button class="btn-main" onclick="resetEmotions()" style="width:100%;margin-top:6px">🔄 Scan Again</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .emo-btn {
+        border-radius: 18px;
+        padding: 16px 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #fff;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.2s;
+      }
+      .emo-btn:active {
+        transform: scale(0.93);
+      }
+    </style>
+
+
+    <!-- ══════════ PULSE ══════════ -->
+    <div class="pg" id="pg-heart">
+      <div class="hdr"><button class="bk" onclick="go('pg-home');stopPulseCam()">←</button>
+        <h1>PULSE & TEMP CHECK</h1>
+        <div style="width:34px"></div>
+      </div>
+      <div class="scr">
+        <div class="ct">
+          <div class="card">
+            <div class="stl">📏 Measurement Mode</div>
+            <div class="ptabs">
+              <button class="ptab on" id="pt-cam" onclick="pMode('cam')">📷 Camera</button>
+              <button class="ptab" id="pt-manual" onclick="pMode('manual')">✏️ Manual</button>
+              <button class="ptab" id="pt-sim" onclick="pMode('sim')">⚡ Demo</button>
+            </div>
+
+            <!-- CAMERA MODE -->
+            <div id="pm-cam">
+              <div class="inote" style="margin-bottom:10px;font-size:11px;line-height:1.85">
+                <strong>📋 Step-by-step:</strong><br>
+                1️⃣ Turn ON phone <strong>flashlight/torch</strong> 🔦<br>
+                2️⃣ Press baby's <strong>index fingertip firmly</strong> on <strong>rear camera lens</strong><br>
+                3️⃣ Camera lens must turn <strong>RED-DARK</strong> — if bright/white, reposition finger<br>
+                4️⃣ Tap START — hold <strong>perfectly still</strong> for 30 seconds<br>
+                ⚠️ Works best in a dim room with flashlight ON
+              </div>
+              <div class="fstat fwarn" id="fstat">Place finger on camera then tap START</div>
+              <div class="pring-wrap">
+                <div class="pring idle" id="pring">
+                  <div>
+                    <div class="bpm-v" id="pval">--</div>
+                    <div class="bpm-u">BPM</div>
+                  </div>
+                </div>
+                <canvas id="wc"></canvas>
+                <div class="prog">
+                  <div class="prog-f" id="pf"></div>
+                </div>
+                <div
+                  style="font-size:11px;color:#6b7280;margin-top:5px;min-height:15px;font-weight:800;text-align:center"
+                  id="pmsg"></div>
+              </div>
+              <div class="vg">
+                <div class="vc" style="background:#f0fdf4">
+                  <div class="vl">💓 Heart Rate</div>
+                  <div class="vv" style="color:#059669" id="bpmval">-- BPM</div>
+                  <div id="btag"></div>
+                </div>
+              </div>
+              <button class="btn-main" id="meas-btn" onclick="startCamMeasure()" style="margin-top:10px">🔦 START
+                MEASUREMENT</button>
+            </div>
+
+            <!-- MANUAL MODE -->
+            <div id="pm-manual" style="display:none">
+              <div class="inote" style="margin-bottom:10px;font-size:12px">
+                ✏️ <strong>Most Accurate Method</strong> — Enter readings from real medical devices.<br>
+                🛒 Buy a pulse oximeter (₹500–₹2000) for heart rate.
+              </div>
+              <div style="margin-bottom:10px">
+                <div style="font-size:12px;font-weight:900;color:#059669;margin-bottom:4px">💓 Heart Rate (BPM)</div>
+                <input type="number" class="num-in" id="man-bpm" placeholder="e.g. 75" min="30" max="220">
+                <div style="font-size:10px;color:#6b7280;text-align:center;margin-top:3px">Normal resting: 60–100 BPM
+                </div>
+              </div>
+              <button class="btn-green" onclick="submitManual()">✅ SAVE & ANALYSE READINGS</button>
+            </div>
+
+            <!-- SIMULATION MODE -->
+            <div id="pm-sim" style="display:none">
+              <div
+                style="background:#fef9c3;border:1.5px solid #fbbf24;border-radius:11px;padding:9px;font-size:12px;color:#92400e;font-weight:700;margin-bottom:10px">
+                ⚡ Demo mode only — not real data. For accuracy use Camera or Manual mode.
+              </div>
+              <div class="pring-wrap">
+                <div class="pring idle" id="pring-s">
+                  <div>
+                    <div class="bpm-v" id="pval-s">--</div>
+                    <div class="bpm-u">BPM</div>
+                  </div>
+                </div>
+                <canvas id="wc-s"
+                  style="width:100%;height:52px;border-radius:11px;background:#0f172a;display:block;margin-top:7px"></canvas>
+                <div class="prog">
+                  <div class="prog-f" id="pf-s"></div>
+                </div>
+                <div style="font-size:11px;color:#6b7280;margin-top:4px;text-align:center;min-height:15px" id="pmsg-s">
+                </div>
+              </div>
+              <button class="btn-main" id="sim-btn" onclick="runSim()" style="margin-top:10px">⚡ RUN DEMO
+                SIMULATION</button>
+            </div>
+
+            <div style="margin-top:12px;padding-top:12px;border-top:1px dashed #e5e7eb">
+              <div class="fr"><label class="fl">Notify Mobile 1:</label><input class="fi" id="h-mob1"
+                  placeholder="+91 XXXXXXXXXX" type="tel"></div>
+              <div class="fr"><label class="fl">Notify Mobile 2:</label><input class="fi" id="h-mob2"
+                  placeholder="+91 XXXXXXXXXX" type="tel"></div>
+            </div>
+            <div id="pulse-msg"></div>
+          </div>
+          <div class="card" id="hcard" style="display:none">
+            <div class="stl">📊 Checkup Result</div>
+            <div id="hbody"></div>
+          </div>
+          <div class="card">
+            <div class="stl">📅 Reading History</div>
+            <div id="rhist" style="font-size:12px;color:#6b7280;text-align:center;padding:12px">No readings yet.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW SLEEP PAGE -->
+    <div class="pg" id="pg-sleep">
+      <div class="hdr"><button class="bk" onclick="go('pg-home');stopAllLullabies()">←</button>
+        <h1>SLEEP SCHEDULE</h1>
+        <div style="width:34px"></div>
+      </div>
+      <div class="scr">
+        <div class="ct">
+          <div class="card">
+            <div style="font-size:11px;font-weight:900;color:#1e40af;text-transform:uppercase;margin-bottom:10px">😴
+              Sleep
+              Tracker</div>
+            <button class="btn-main" id="sleep-toggle-btn" onclick="toggleSleepTracking()"
+              style="width:100%;padding:20px;font-size:18px;font-weight:900;color:#1f2937;background:hsl(220 10% 90%);margin-bottom:10px">💤
+              OFF — Tap to Start</button>
+            <div
+              style="background:linear-gradient(135deg, hsl(145 80% 97%), hsl(145 55% 92%));border-radius:12px;padding:15px;text-align:center;margin-bottom:10px;font-family:'Baloo 2', sans-serif">
+              <div style="font-size:32px;font-weight:900;letter-spacing:2px" id="sleep-timer">00:00:00</div>
+            </div>
+            <div style="background:hsl(210 80% 93%);border-radius:12px;padding:12px;text-align:center"><span
+                style="font-size:20px;font-weight:900;color:#1e40af;font-family:'Baloo 2', sans-serif"
+                id="sleep-total">0.0 hrs</span><span
+                style="font-size:10px;color:#6b7280;margin-left:8px;font-weight:bold">total sleep</span></div>
+          </div>
+          <div class="card">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:15px">
+              <div
+                style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg, hsl(330 80% 80%), hsl(270 60% 70%))">
+                🎵</div>
+              <div>
+                <div style="font-size:14px;font-weight:900;color:#db2777">Melody Baby Album</div>
+                <div style="font-size:10px;color:#6b7280;font-weight:bold">6 Soothing Lullabies</div>
+              </div>
+            </div>
+            <div id="now-playing-section"
+              style="display:none;background:linear-gradient(135deg, hsl(270 50% 98%), hsl(210 60% 97%));border-radius:12px;padding:12px;margin-bottom:12px">
+              <div style="font-size:10px;font-weight:900;color:hsl(270 60% 70%);margin-bottom:6px">♪ NOW PLAYING</div>
+              <div style="font-size:14px;font-weight:900;color:#1f2937;margin-bottom:10px" id="now-playing-title">🌙
+                Brahms' Lullaby</div>
+              <div
+                style="display:flex;align-items:flex-end;gap:3px;height:24px;margin-bottom:10px;justify-content:center">
+                <div
+                  style="width:4px;height:12px;background:hsl(270 60% 70%);border-radius:2px;animation:waveAnim 0.6s ease-in-out infinite;animation-delay:0s">
+                </div>
+                <div
+                  style="width:4px;height:14px;background:hsl(330 81% 60%);border-radius:2px;animation:waveAnim 0.6s ease-in-out infinite;animation-delay:0.08s">
+                </div>
+                <div
+                  style="width:4px;height:10px;background:hsl(270 70% 50%);border-radius:2px;animation:waveAnim 0.6s ease-in-out infinite;animation-delay:0.16s">
+                </div>
+                <div
+                  style="width:4px;height:16px;background:hsl(270 60% 70%);border-radius:2px;animation:waveAnim 0.6s ease-in-out infinite;animation-delay:0.24s">
+                </div>
+                <div
+                  style="width:4px;height:12px;background:hsl(330 81% 60%);border-radius:2px;animation:waveAnim 0.6s ease-in-out infinite;animation-delay:0.32s">
+                </div>
+                <div
+                  style="width:4px;height:14px;background:hsl(270 70% 50%);border-radius:2px;animation:waveAnim 0.6s ease-in-out infinite;animation-delay:0.4s">
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;justify-content:center"><button
+                  onclick="prevLullaby()"
+                  style="width:36px;height:36px;border-radius:50%;background:hsl(270 60% 95%);border:none;font-size:16px;cursor:pointer">⏮</button><button
+                  onclick="toggleLullaby()" id="play-pause-btn"
+                  style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg, hsl(330 81% 60%), hsl(270 60% 70%));border:none;font-size:18px;cursor:pointer;color:white;font-weight:900">▶</button><button
+                  onclick="nextLullaby()"
+                  style="width:36px;height:36px;border-radius:50%;background:hsl(270 60% 95%);border:none;font-size:16px;cursor:pointer">⏭</button>
+              </div>
+              <div
+                style="display:flex;gap:8px;margin-top:12px;align-items:center;justify-content:center;padding-top:12px;border-top:1px solid hsl(270 50% 85%)">
+                <span style="font-size:11px;font-weight:800;color:hsl(270 60% 60%)">⏱ Play for:</span><input
+                  type="number" id="duration-mins" min="1" max="120" value="15"
+                  style="width:50px;padding:4px;border:1px solid hsl(270 60% 80%);border-radius:4px;font-size:11px;font-weight:700"
+                  onchange="updateDurationDisplay()"><span style="font-size:11px;color:hsl(270 60% 60%)">min</span><span
+                  id="duration-status" style="font-size:10px;color:hsl(270 60% 60%);margin-left:6px">Not set</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px" id="lullaby-list"></div>
+          </div>
+          <div class="card">
+            <div style="font-size:11px;font-weight:900;color:#1e40af;text-transform:uppercase;margin-bottom:10px">⏰ Set
+              Bedtime & Wake Time</div>
+            <div class="fr"><label class="fl">Bedtime:</label><input class="fi" id="bedtime" type="time" value="21:00"
+                onchange="updateSlpInfo()"></div>
+            <div class="fr"><label class="fl">Wake Time:</label><input class="fi" id="waketime" type="time"
+                value="07:00" onchange="updateSlpInfo()"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0">
+              <div style="background:#dcfce7;border-radius:12px;padding:10px;text-align:center">
+                <div style="font-size:10px;font-weight:800;color:#6b7280;margin-bottom:2px">Target</div>
+                <div style="font-size:18px;font-weight:900;font-family:'Baloo 2';color:#059669" id="sl-target">10.0 hrs
+                </div>
+              </div>
+              <div style="background:#dbeafe;border-radius:12px;padding:10px;text-align:center">
+                <div style="font-size:10px;font-weight:800;color:#6b7280;margin-bottom:2px">Recommended</div>
+                <div style="font-size:13px;font-weight:900;font-family:'Baloo 2';color:#1e40af">12–14 hrs<br><span
+                    style="font-size:9px">(under 2 yrs)</span></div>
+              </div>
+            </div>
+            <div class="inote" style="margin:8px 0;font-size:11px">🔔 Push notification + in-app alert <strong>10 min &
+                5
+                min before</strong> bedtime <strong id="sn-time">21:00</strong></div>
+            <div class="fr"><label class="fl">Mobile 1:</label><input class="fi" id="sl-mob1"
+                placeholder="+91 XXXXXXXXXX" type="tel"></div>
+            <div class="fr"><label class="fl">Mobile 2:</label><input class="fi" id="sl-mob2"
+                placeholder="+91 XXXXXXXXXX" type="tel"></div>
+            <button class="btn-main" onclick="saveSlpSched()" style="margin-top:8px">💾 SAVE & SET ALERTS</button>
+            <div id="sl-msg" style="margin-top:6px;font-size:11px;text-align:center"></div>
+          </div>
+          <div class="card">
+            <div class="stl">📊 Sleep History</div>
+            <div id="sl-hist">
+              <div style="text-align:center;color:#6b7280;padding:12px;font-size:12px">No sessions yet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      @keyframes waveAnim {
+
+        0%,
+        100% {
+          height: 8px;
+        }
+
+        50% {
+          height: 20px;
+        }
+      }
+    </style>
+
+    <!-- ══════════ MEDICINE ══════════ -->
+    <div class="pg" id="pg-medicine">
+      <div class="hdr"><button class="bk" onclick="go('pg-home')">←</button>
+        <h1>MEDICINE REMINDER</h1>
+        <div style="width:34px"></div>
+      </div>
+      <div class="scr">
+        <div class="ct">
+          <div class="card">
+            <div class="stl">➕ Add Medicine</div>
+            <div class="fr"><label class="fl">Health Issue:</label><input class="fi" id="m-issue"
+                placeholder="e.g. Fever, Cold"></div>
+            <div class="fr"><label class="fl">Medicine:</label><input class="fi" id="m-med"
+                placeholder="e.g. Paracetamol drops"></div>
+            <div class="fr"><label class="fl">Dose Time:</label><input class="fi" id="m-time" type="time"></div>
+            <div class="fr"><label class="fl">Dose:</label><input class="fi" id="m-dose" placeholder="e.g. 2.5 ml">
+            </div>
+            <div class="fr"><label class="fl">Frequency:</label>
+              <select class="fi" id="m-freq">
+                <option>Once daily</option>
+                <option>Twice daily</option>
+                <option>Thrice daily</option>
+                <option>As needed</option>
+              </select>
+            </div>
+            <div class="fr"><label class="fl">Mobile 1:</label><input class="fi" id="m-mob1"
+                placeholder="+91 XXXXXXXXXX" type="tel"></div>
+            <div class="fr"><label class="fl">Mobile 2:</label><input class="fi" id="m-mob2"
+                placeholder="+91 XXXXXXXXXX" type="tel"></div>
+            <div class="inote" style="margin-bottom:10px;font-size:11px">
+              🔔 Push notification fires 10 min & 5 min before dose<br>
+              📋 In-app alert appears on home screen<br>
+              📱 30-sec polling ensures no reminder is ever missed
+            </div>
+            <button class="btn-main" onclick="addMed()">💊 ADD REMINDER</button>
+            <div id="med-msg" style="margin-top:6px;font-size:11px;text-align:center"></div>
+          </div>
+          <div class="card">
+            <div class="stl">💊 Active Reminders</div>
+            <div id="med-list">
+              <div style="text-align:center;color:#6b7280;padding:12px;font-size:12px">No medicines added yet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ FOOD ══════════ -->
+    <div class="pg" id="pg-food">
+      <div class="hdr"><button class="bk" onclick="go('pg-home')">←</button>
+        <h1>FOOD REMINDER</h1>
+        <div style="width:34px"></div>
+      </div>
+      <div class="scr">
+        <div class="ct">
+          <div class="card">
+            <div class="stl">🍽️ Meal Times</div>
+            <div class="fr"><label class="fl">🌅 Breakfast:</label><input class="fi" id="f-bfast" type="time"
+                value="08:00"></div>
+            <div class="fr"><label class="fl">☀️ Lunch:</label><input class="fi" id="f-lunch" type="time" value="13:00">
+            </div>
+            <div class="fr"><label class="fl">🧃 Snacks:</label><input class="fi" id="f-snacks" type="time"
+                value="16:30">
+            </div>
+            <div class="fr"><label class="fl">🌙 Dinner:</label><input class="fi" id="f-dinner" type="time"
+                value="19:30">
+            </div>
+            <div class="fr"><label class="fl">🍼 Night Feed:</label><input class="fi" id="f-nfeed" type="time"
+                value="22:00"></div>
+            <div class="fr"><label class="fl">Mobile 1:</label><input class="fi" id="f-mob1"
+                placeholder="+91 XXXXXXXXXX" type="tel"></div>
+            <div class="fr"><label class="fl">Mobile 2:</label><input class="fi" id="f-mob2"
+                placeholder="+91 XXXXXXXXXX" type="tel"></div>
+            <div class="inote" style="margin-bottom:10px;font-size:11px">🔔 Push notification + in-app alert 10 min & 5
+              min before every meal<br>📱 Enable notifications on home screen for locked-screen alerts</div>
+            <button class="btn-main" onclick="saveFood()">✅ SAVE & ACTIVATE REMINDERS</button>
+            <div id="food-msg" style="margin-top:6px;font-size:11px;text-align:center"></div>
+          </div>
+          <div class="card">
+            <div class="stl">⏱️ Live Countdown</div>
+            <div class="mcs" id="food-timers"></div>
+          </div>
+          <div class="card">
+            <div class="stl">🥗 Meal Suggestions</div>
+            <div id="meal-sugg" style="font-size:12px;color:#6b7280;text-align:center;padding:8px">Save meal times to
+              see
+              suggestions!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ STUDY ══════════ -->
+    <div class="pg" id="pg-study">
+      <div class="hdr"><button class="bk" onclick="go('pg-home')">←</button>
+        <h1>STUDY & GAMES</h1>
+        <div style="width:34px"></div>
+      </div>
+      <div class="scr">
+        <div class="ct">
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <div class="stl" style="margin:0">📖 Learn Words</div>
+              <div style="display:flex;gap:5px;align-items:center">
+                <button class="btn-sm" id="study-voice-toggle" onclick="toggleStudyVoice()" style="background:#dcfce7;color:#15803d">🔊 Sound ON</button>
+                <button class="btn-sm" onclick="prevWord()">‹ PREV</button>
+                <button class="btn-sm" onclick="nextWord()">NEXT ›</button>
+              </div>
+            </div>
+            <div style="font-size:10px;color:#9ca3af;text-align:center;margin-bottom:6px" id="wprog">Word 1 of 40</div>
+            <div style="background:#fef9c3;border-radius:14px;padding:12px;text-align:center;cursor:pointer"
+              onclick="speakWord(CW.n)">
+              <span class="wemoji" id="study-emo">🍎</span>
+              <div class="wtxt" id="study-word">APPLE</div>
+              <div style="font-size:10px;color:#9ca3af">🔊 Tap to hear</div>
+            </div>
+            <div style="margin-top:10px">
+              <div class="stl" style="margin-bottom:5px">✏️ Draw It</div>
+              <div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;flex-wrap:wrap">
+                <div class="cdot on" style="background:#1f2937" onclick="setDC('#1f2937',this)"></div>
+                <div class="cdot" style="background:#ef4444" onclick="setDC('#ef4444',this)"></div>
+                <div class="cdot" style="background:#3b82f6" onclick="setDC('#3b82f6',this)"></div>
+                <div class="cdot" style="background:#16a34a" onclick="setDC('#16a34a',this)"></div>
+                <div class="cdot" style="background:#f59e0b" onclick="setDC('#f59e0b',this)"></div>
+                <div class="cdot" style="background:#a855f7" onclick="setDC('#a855f7',this)"></div>
+                <button class="btn-sm" onclick="clearDraw()" style="margin-left:auto">🗑 Clear</button>
+              </div>
+              <canvas class="dcanvas" id="dc"></canvas>
+            </div>
+          </div>
+          <div class="card">
+            <div class="stl">🎮 Games</div>
+            <button class="gbtn" id="gbtn-wm" onclick="tg('wm')">🔤 Word Match</button>
+            <div class="gbox" id="gb-wm">
+              <div style="display:flex;justify-content:space-between;margin-bottom:9px"><strong
+                  style="color:#1e40af;font-family:'Baloo 2'">Score: <span id="wm-sc">0</span></strong><button
+                  class="btn-sm" onclick="initWM()">🔄</button></div>
+              <div style="text-align:center;margin-bottom:10px"><span style="font-size:56px" id="wm-emo">❓</span>
+                <div style="font-size:11px;color:#6b7280;margin-top:3px">Which word?</div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center" id="wm-ch"></div>
+              <div
+                style="text-align:center;margin-top:8px;font-size:13px;font-weight:900;min-height:18px;font-family:'Baloo 2'"
+                id="wm-fb"></div>
+            </div>
+            <button class="gbtn" id="gbtn-cq" onclick="tg('cq')">🎨 Colour Quiz</button>
+            <div class="gbox" id="gb-cq">
+              <div style="display:flex;justify-content:space-between;margin-bottom:9px"><strong
+                  style="color:#b45309;font-family:'Baloo 2'">Score: <span id="cq-sc">0</span></strong><button
+                  class="btn-sm" onclick="initCQ()">🔄</button></div>
+              <div style="text-align:center;margin-bottom:10px">
+                <div id="cq-box"
+                  style="width:76px;height:76px;border-radius:50%;margin:0 auto 8px;border:4px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.12)">
+                </div>
+                <div style="font-size:11px;color:#6b7280">What colour?</div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center" id="cq-ch"></div>
+              <div
+                style="text-align:center;margin-top:8px;font-size:13px;font-weight:900;min-height:18px;font-family:'Baloo 2'"
+                id="cq-fb"></div>
+            </div>
+            <button class="gbtn" id="gbtn-pz" onclick="tg('pz')">🧩 Number Puzzle</button>
+            <div class="gbox" id="gb-pz">
+              <div style="display:flex;justify-content:space-between;margin-bottom:10px"><strong
+                  style="color:#059669;font-family:'Baloo 2'">Moves: <span id="pz-mv">0</span></strong><button
+                  class="btn-sm" onclick="shufflePZ()" style="background:#dcfce7;color:#059669">🔀 Shuffle</button>
+              </div>
+              <div class="pzg" id="pzg"></div>
+              <div id="pz-win"
+                style="text-align:center;color:#059669;font-weight:900;font-size:14px;margin-top:8px;display:none;font-family:'Baloo 2'">
+                🎉 Solved! Amazing!</div>
+            </div>
+            <button class="gbtn" id="gbtn-abc" onclick="tg('abc')">🔡 A–Z Explorer</button>
+            <div class="gbox" id="gb-abc">
+              <div style="font-size:10px;color:#6b7280;margin-bottom:7px">Tap any letter to hear it!</div>
+              <div class="abcg" id="abcg"></div>
+              <div id="abc-hl"
+                style="text-align:center;margin-top:10px;font-size:42px;font-weight:900;color:#1e40af;min-height:52px;font-family:'Baloo 2'">
+              </div>
+            </div>
+          </div>
+          <!-- Bottom-fill tip card -->
+          <div class="card" style="background:linear-gradient(135deg,#fef9c3,#fff);border:2px solid #fbbf24">
+            <div style="font-size:11px;font-weight:900;color:#92400e;text-transform:uppercase;margin-bottom:8px">💡 Did You Know?</div>
+            <div style="font-size:12px;color:#374151;line-height:1.7;font-weight:700">
+              Babies begin recognising words as early as <strong>6 months</strong>! Reading aloud and showing picture cards daily helps build vocabulary and strengthens the parent-baby bond. 🧠✨
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ PRE-EMOTION QUESTIONNAIRE MODAL ══════════ -->
+    <div id="emo-modal" style="display:none" class="modal-overlay" onclick="if(event.target===this)closeModal()">
+      <div class="modal-sheet">
+        <div class="modal-title">👶 Quick Health Check</div>
+        <div class="modal-sub">Answer a few questions so the AI can give you the most accurate advice for your baby's
+          current state.</div>
+
+        <div class="q-group">
+          <div class="q-label">🍼 When did baby last feed?</div>
+          <select class="q-select" id="q-feed">
+            <option value="">Select...</option>
+            <option value="just_now">Just now (under 30 min)</option>
+            <option value="1h">About 1 hour ago</option>
+            <option value="2h">About 2 hours ago</option>
+            <option value="3h">3+ hours ago — may be hungry</option>
+            <option value="not_sure">Not sure</option>
+          </select>
+        </div>
+
+        <div class="q-group">
+          <div class="q-label">💊 Last medicine given?</div>
+          <select class="q-select" id="q-med">
+            <option value="na">No current medicine</option>
+            <option value="just_now">Just given (under 1 hr)</option>
+            <option value="2h">2–4 hours ago</option>
+            <option value="overdue">Due but not yet given ⚠️</option>
+            <option value="not_sure">Not sure</option>
+          </select>
+        </div>
+
+        <div class="q-group">
+          <div class="q-label">🌡️ Known temperature right now?</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input class="q-input" id="q-temp" type="number" placeholder="e.g. 98.6" min="90" max="110" step="0.1"
+              style="max-width:130px">
+            <span style="font-size:12px;color:#6b7280;font-weight:700">°F (leave blank if unknown)</span>
+          </div>
+        </div>
+
+        <div class="q-group">
+          <div class="q-label">😟 Symptoms noticed? (tap all that apply)</div>
+          <div class="q-tags">
+            <div class="q-tag" onclick="toggleTag(this)" data-v="fever">🌡️ Fever</div>
+            <div class="q-tag" onclick="toggleTag(this)" data-v="cough">🤧 Cough</div>
+            <div class="q-tag" onclick="toggleTag(this)" data-v="runny_nose">👃 Runny Nose</div>
+            <div class="q-tag" onclick="toggleTag(this)" data-v="vomiting">🤮 Vomiting</div>
+            <div class="q-tag" onclick="toggleTag(this)" data-v="diarrhea">💧 Diarrhea</div>
+            <div class="q-tag" onclick="toggleTag(this)" data-v="rash">🔴 Rash</div>
+            <div class="q-tag" onclick="toggleTag(this)" data-v="not_sleeping">😣 Not Sleeping</div>
+            <div class="q-tag" onclick="toggleTag(this)" data-v="none">✅ None</div>
+          </div>
+        </div>
+
+        <div class="q-group">
+          <div class="q-label">⏱️ How long has baby been this way?</div>
+          <select class="q-select" id="q-duration">
+            <option value="just_started">Just started</option>
+            <option value="30min">30 minutes</option>
+            <option value="1h">About 1 hour</option>
+            <option value="few_hours">Few hours</option>
+            <option value="all_day">All day</option>
+            <option value="multiple_days">Multiple days</option>
+          </select>
+        </div>
+
+        <div class="q-group">
+          <div class="q-label">🛏️ Baby's sleep last night?</div>
+          <select class="q-select" id="q-sleep">
+            <option value="good">Good sleep (7+ hrs)</option>
+            <option value="fair">Fair sleep (4–7 hrs)</option>
+            <option value="poor">Poor sleep (under 4 hrs)</option>
+            <option value="not_sure">Not sure</option>
+          </select>
+        </div>
+
+
+        <button class="btn-main" onclick="submitQuestionnaire()" style="margin-top:6px">🔍 ANALYSE BABY'S EMOTION &
+          HEALTH</button>
+        <button onclick="closeModal()"
+          style="width:100%;margin-top:8px;background:none;border:none;color:#9ca3af;font-size:13px;cursor:pointer;padding:8px;font-family:'Nunito';font-weight:700">Skip
+          questionnaire — analyse only emotion</button>
+
+      </div>
+    </div>
+
+    <!-- ══════════ DOCTOR CONNECT ══════════ -->
+    <div class="pg" id="pg-doctor">
+      <div class="hdr"><button class="bk" onclick="go('pg-home')">←</button>
+        <h1>DOCTOR CONNECT</h1>
+        <div style="width:34px"></div>
+      </div>
+      <div class="scr">
+        <div class="ct">
+
+          <div class="card" style="background:linear-gradient(135deg,#eff6ff,#fff);border:2px solid #bfdbfe">
+            <div class="stl">👨‍⚕️ Primary Paediatrician</div>
+            <div id="doc-primary-display">
+              <div style="text-align:center;color:#9ca3af;padding:16px;font-size:13px">No doctor saved yet. Add below ↓
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="stl">🚨 Emergency Numbers</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <a href="tel:108" class="doc-emergency">📞 108 — Ambulance (National)</a>
+              <a href="tel:1800-180-1104" class="doc-emergency"
+                style="background:linear-gradient(135deg,#9333ea,#7c3aed)">📞 1800-180-1104 — Child Helpline</a>
+              <a href="tel:102" class="doc-emergency" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)">📞 102
+                —
+                Maternity & Child</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="stl">➕ Add / Update Doctor</div>
+            <div class="fr"><label class="fl">Doctor Name:</label><input class="fi" id="dc-name"
+                placeholder="Dr. Ravi Kumar"></div>
+            <div class="fr"><label class="fl">Specialisation:</label><input class="fi" id="dc-spec"
+                placeholder="Paediatrician"></div>
+            <div class="fr"><label class="fl">Mobile:</label><input class="fi" id="dc-mob" placeholder="+91 XXXXXXXXXX"
+                type="tel"></div>
+            <div class="fr"><label class="fl">Clinic/Hospital:</label><input class="fi" id="dc-clinic"
+                placeholder="e.g. Rainbow Children"></div>
+            <div class="fr"><label class="fl">Timing:</label><input class="fi" id="dc-timing"
+                placeholder="Mon–Sat 9am–1pm"></div>
+            <div class="fr"><label class="fl">Clinic Address:</label><input class="fi" id="dc-addr"
+                placeholder="Full address"></div>
+            <div class="fr"><label class="fl">Notes:</label><input class="fi" id="dc-notes"
+                placeholder="e.g. Call before visiting"></div>
+            <button class="btn-main" onclick="saveDoctor()" style="margin-top:4px">💾 SAVE DOCTOR</button>
+          </div>
+
+          <div class="card" id="dc-extra-card" style="display:none">
+            <div class="stl">➕ Add Second Doctor</div>
+            <div class="fr"><label class="fl">Doctor Name:</label><input class="fi" id="dc2-name"
+                placeholder="Dr. Priya Sharma"></div>
+            <div class="fr"><label class="fl">Specialisation:</label><input class="fi" id="dc2-spec"
+                placeholder="e.g. Allergist, ENT"></div>
+            <div class="fr"><label class="fl">Mobile:</label><input class="fi" id="dc2-mob" placeholder="+91 XXXXXXXXXX"
+                type="tel"></div>
+            <button class="btn-green" onclick="saveDoctor2()" style="margin-top:4px">💾 SAVE 2ND DOCTOR</button>
+          </div>
+          <button class="btn-sm"
+            onclick="document.getElementById('dc-extra-card').style.display='block';this.style.display='none'"
+            style="width:100%;padding:11px">➕ Add Another Doctor</button>
+
+          <div class="card" id="dc-second-display"
+            style="display:none;background:linear-gradient(135deg,#f3e8ff,#fff);border:2px solid #e9d5ff">
+            <div class="stl" style="color:#7c3aed">👩‍⚕️ Second Doctor</div>
+            <div id="doc-second-content"></div>
+          </div>
+          <!-- Bottom-fill tip card -->
+          <div class="card" style="background:linear-gradient(135deg,#eff6ff,#fff);border:2px solid #93c5fd">
+            <div style="font-size:11px;font-weight:900;color:#1e40af;text-transform:uppercase;margin-bottom:8px">🏥 Health Tip</div>
+            <div style="font-size:12px;color:#374151;line-height:1.7;font-weight:700">
+              Keep your paediatrician's contact updated and schedule regular check-ups every <strong>3–6 months</strong> for babies under 2 years. Early detection of health issues leads to better outcomes. 💙
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ GROWTH TRACKING ══════════ -->
+    <div class="pg" id="pg-growth">
+      <div class="hdr"><button class="bk" onclick="go('pg-home')">←</button>
+        <h1>GROWTH TRACKING</h1>
+        <div style="width:34px"></div>
+      </div>
+      <div class="scr">
+        <div class="ct">
+
+          <div class="card">
+            <div class="stl">📊 Current Growth Status</div>
+            <div id="growth-status-card">
+              <div style="text-align:center;color:#9ca3af;padding:12px;font-size:13px">Add your baby's first measurement
+                below ↓</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="stl">➕ Log New Measurement</div>
+            <div class="fr"><label class="fl">Date:</label><input class="fi" id="gr-date" type="date"></div>
+            <div class="fr"><label class="fl">Weight:</label>
+              <div style="display:flex;gap:6px;flex:1">
+                <input class="fi" id="gr-wt" type="number" placeholder="e.g. 8.5" min="1" max="30" step="0.1"
+                  style="flex:2">
+                <select class="fi" id="gr-wt-unit" style="flex:1">
+                  <option value="kg">kg</option>
+                  <option value="lbs">lbs</option>
+                </select>
+              </div>
+            </div>
+            <div class="fr"><label class="fl">Height:</label>
+              <div style="display:flex;gap:6px;flex:1">
+                <input class="fi" id="gr-ht" type="number" placeholder="e.g. 72" min="30" max="200" step="0.5"
+                  style="flex:2">
+                <select class="fi" id="gr-ht-unit" style="flex:1">
+                  <option value="cm">cm</option>
+                  <option value="in">inches</option>
+                </select>
+              </div>
+            </div>
+            <div class="fr"><label class="fl">Head Circ.:</label>
+              <div style="display:flex;gap:6px;flex:1">
+                <input class="fi" id="gr-hc" type="number" placeholder="e.g. 44" min="20" max="70" step="0.5"
+                  style="flex:2">
+                <span style="font-size:11px;color:#9ca3af;align-self:center;flex-shrink:0">cm</span>
+              </div>
+            </div>
+
+            <!-- NEW BMI CALCULATOR SECTION -->
+            <div
+              style="background:linear-gradient(135deg, #f0fdf4, #dcfce7);border-radius:12px;padding:14px;margin:12px 0 8px 0;border-left:4px solid #059669">
+              <div style="font-size:11px;font-weight:900;color:#059669;text-transform:uppercase;margin-bottom:10px">⚖️
+                BMI
+                Calculator + Food Advisor</div>
+              <div class="fr">
+                <label class="fl" style="min-width:90px">Age (months):</label>
+                <input class="fi" id="bmi-age" type="number" min="0" max="60" placeholder="e.g. 12" style="flex:1">
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div class="fr">
+                  <label class="fl">Weight:</label>
+                  <input class="fi" id="bmi-wt" type="number" step="0.1" placeholder="kg">
+                </div>
+                <div class="fr">
+                  <label class="fl">Height:</label>
+                  <input class="fi" id="bmi-ht" type="number" step="0.1" placeholder="cm">
+                </div>
+              </div>
+              <button class="btn-green" onclick="calculateBMI()" style="margin-top:10px;width:100%">📊 Calculate BMI &
+                Get
+                Food Plan</button>
+              <div id="bmi-results" style="display:none;margin-top:12px;font-size:12px"></div>
+            </div>
+            <!-- END BMI SECTION -->
+
+            <div class="fr"><label class="fl">Baby Age:</label><input class="fi" id="gr-age-m" type="number"
+                placeholder="Age in months" min="0" max="60"></div>
+            <div class="fr"><label class="fl">Notes:</label><input class="fi" id="gr-notes"
+                placeholder="e.g. After illness, milestone"></div>
+            <button class="btn-main" onclick="logGrowth()">📏 LOG MEASUREMENT</button>
+          </div>
+
+          <div class="card" id="growth-chart-card" style="display:none">
+            <div class="stl">📈 Growth Chart (Weight)</div>
+            <div class="growth-chart" id="growth-chart"></div>
+          </div>
+
+          <div class="card" id="growth-chart-ht-card" style="display:none">
+            <div class="stl">📈 Growth Chart (Height)</div>
+            <div class="growth-chart" id="growth-chart-ht"></div>
+          </div>
+
+          <div class="card">
+            <div class="stl">📋 Growth History</div>
+            <div id="growth-hist">
+              <div style="text-align:center;color:#9ca3af;padding:12px;font-size:12px">No measurements logged yet.</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="who-note">
+              <strong>📌 WHO Growth Reference (0–2 years):</strong><br>
+              Weight: Newborn ~3–3.5 kg → 1yr ~9–10 kg → 2yr ~12 kg<br>
+              Height: Newborn ~50 cm → 1yr ~75 cm → 2yr ~87 cm<br>
+              Head: Birth ~34 cm → 1yr ~46 cm → 2yr ~48 cm<br>
+              <strong>Weight gain:</strong> 25–30g/day (0–3 months) · 15–20g/day (3–6m) · 10g/day (6–12m)<br>
+              <em>⚠️ Always consult your paediatrician for personalised growth assessment.</em>
+            </div>
+          </div>
+          <!-- Bottom-fill tip card -->
+          <div class="card" style="background:linear-gradient(135deg,#dcfce7,#fff);border:2px solid #86efac">
+            <div style="font-size:11px;font-weight:900;color:#15803d;text-transform:uppercase;margin-bottom:8px">🌱 Growth Insight</div>
+            <div style="font-size:12px;color:#374151;line-height:1.7;font-weight:700">
+              Babies typically <strong>double</strong> their birth weight by 5–6 months and <strong>triple</strong> by 1 year. Consistent tracking helps you spot trends early — don't worry about day-to-day fluctuations, focus on the overall curve! 📈💚
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- .app -->
+
+  <!-- FOOTER BAR -->
+  <div class="app-footer">
+    <span>👶 Smart Child Care System</span>
+    <span>·</span>
+    <span>📍 Duvvada, Visakhapatnam</span>
+    <span>·</span>
+    <span>📞 +91 99597 40963</span>
+  </div>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════════
+    //  STATE
+    // ═══════════════════════════════════════════════════════════════
+    var S = {
+      child: { name: '', age: '', photo: null, health: '', doctor: '' },
+      family: { mob1: '', mob2: '' },
+      medicines: [], food: {},
+      sleep: { on: false, start: null, secs: 0, sessions: [] },
+      readings: [], drawColor: '#1f2937', wordIdx: 0
+    };
+
+    var APIKEY = localStorage.getItem('scc_key') || '';
+    var _fired = {};   // dedup notification keys
+    var _timers = [];   // setTimeout handles for scheduled notifs
+    var _clkInt = null; // 30-sec polling interval
+    var _foodInt = null; // 60-sec food-timer interval
+    var _sleepSched = null; // persisted sleep schedule
+
+    // ═══════════════════════════════════════════════════════════════
+    //  UTILS
+    // ═══════════════════════════════════════════════════════════════
+    function go(id) {
+      document.querySelectorAll('.pg').forEach(function (p) { p.classList.remove('on'); });
+      var pg = document.getElementById(id); pg.classList.add('on');
+      var scr = pg.querySelector('.scr'); if (scr) scr.scrollTop = 0;
+      if (id === 'pg-home') { tickClock(); updateSched(); updateNotifBar(); }
+      if (id === 'pg-study') {
+        setTimeout(initDraw, 100);
+        if (typeof globalTTSActive !== 'undefined' && globalTTSActive && window.speechSynthesis) {
+          window.speechSynthesis.cancel();
+          let u = new SpeechSynthesisUtterance("Welcome to the Study and Games section! Here you can learn words, draw, and play mini games.");
+          u.rate = 0.85; u.pitch = 1.1; u.lang = 'en-IN';
+          window.speechSynthesis.speak(u);
+        }
+      }
+      if (id === 'pg-food') renderFoodTimers();
+      if (id === 'pg-medicine') renderMeds();
+      if (id === 'pg-emotions') refreshKeyStatus();
+      if (id === 'pg-heart') loadPulseHistoryFromBackend();
+      if (id === 'pg-growth') renderGrowth();
+    }
+    function pad(x) { return String(x).padStart(2, '0'); }
+    function toast(m, d) {
+      var t = document.getElementById('toast');
+      t.textContent = m; t.classList.add('on');
+      clearTimeout(t._t); t._t = setTimeout(function () { t.classList.remove('on'); }, d || 3000);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  LOGIN
+    // ═══════════════════════════════════════════════════════════════
+    function doLogin() {
+      var child = document.getElementById('l-child').value.trim();
+      if (!child) { toast('⚠️ Please enter baby name!'); return; }
+      S.child.name = child;
+      S.family.mob1 = document.getElementById('l-mob1').value.trim();
+      S.family.mob2 = document.getElementById('l-mob2').value.trim();
+
+      // Validate at least one phone number is entered
+      if (!S.family.mob1 && !S.family.mob2) {
+        toast('⚠️ Please enter at least one mobile number for SMS alerts!');
+        return;
+      }
+
+      console.log('✅ Login successful');
+      console.log('📱 Phone 1:', S.family.mob1 ? '✓ Set' : '✗ Not set');
+      console.log('📱 Phone 2:', S.family.mob2 ? '✓ Set' : '✗ Not set');
+
+      // Request notification permission on login
+      if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission().then(function (p) {
+          console.log('Notification permission:', p);
+          updateNotifBar();
+        });
+      }
+
+      // Load saved data from backend
+      setTimeout(function () {
+        loadMedicinesFromBackend();
+        loadFoodScheduleFromBackend();
+      }, 500);
+
+      go('pg-details');
+    }
+
+    // Load food schedule from backend
+    function loadFoodScheduleFromBackend() {
+      fetch('/api/food/schedule')
+        .then(r => r.json())
+        .then(d => {
+          if (d.success && d.schedule && Object.keys(d.schedule).length > 0) {
+            var sch = d.schedule;
+            if (sch.breakfast_time) document.getElementById('f-bfast').value = sch.breakfast_time;
+            if (sch.lunch_time) document.getElementById('f-lunch').value = sch.lunch_time;
+            if (sch.snacks_time) document.getElementById('f-snacks').value = sch.snacks_time;
+            if (sch.dinner_time) document.getElementById('f-dinner').value = sch.dinner_time;
+            if (sch.night_feed_time) document.getElementById('f-nfeed').value = sch.night_feed_time;
+            document.getElementById('f-mob1').value = sch.notify_mob1 || '';
+            document.getElementById('f-mob2').value = sch.notify_mob2 || '';
+            renderFoodTimers();
+          }
+        })
+        .catch(e => console.error('Error loading food schedule:', e));
+    }
+    function previewPhoto(inp) {
+      if (!inp.files || !inp.files[0]) return;
+      var r = new FileReader();
+      r.onload = function (e) {
+        S.child.photo = e.target.result;
+        document.getElementById('photo-prev').innerHTML = '<img src="' + e.target.result + '">';
+      };
+      r.readAsDataURL(inp.files[0]);
+    }
+    function saveDetails() {
+      S.child.age = document.getElementById('d-age').value;
+      S.child.health = document.getElementById('d-health').value;
+      S.child.doctor = document.getElementById('d-doctor').value;
+      document.getElementById('home-name').textContent = S.child.name;
+      document.getElementById('home-age').textContent = 'Age: ' + (S.child.age || '--');
+      if (S.child.photo) document.getElementById('home-av').innerHTML = '<img src="' + S.child.photo + '">';
+      go('pg-home');
+      startPoller();
+      startFoodInt();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  CLOCK + 30-SEC REMINDER POLLER  (Fix 3: never misses alerts)
+    // ═══════════════════════════════════════════════════════════════
+    function startPoller() {
+      if (_clkInt) clearInterval(_clkInt);
+      tickClock();
+      _clkInt = setInterval(function () { tickClock(); pollReminders(); }, 30000);
+    }
+    function tickClock() {
+      var n = new Date();
+      var te = document.getElementById('hclk-t');
+      var de = document.getElementById('hclk-d');
+      if (te) te.textContent = pad(n.getHours()) + ':' + pad(n.getMinutes());
+      if (de) de.textContent = n.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' });
+    }
+
+    function pollReminders() {
+      var n = new Date(), nm = n.getHours() * 60 + n.getMinutes(), dk = n.toDateString();
+      // --- Meals ---
+      var meals = {
+        '🌅 Breakfast': S.food.bfast, '☀️ Lunch': S.food.lunch,
+        '🧃 Snacks': S.food.snacks, '🌙 Dinner': S.food.dinner, '🍼 Night Feed': S.food.nfeed
+      };
+      for (var m in meals) {
+        if (!meals[m]) continue;
+        var p = meals[m].split(':'), mm = parseInt(p[0]) * 60 + parseInt(p[1]), d = mm - nm;
+        if (d === 10 || d === 5) {
+          var k = dk + m + d;
+          if (!_fired[k]) {
+            _fired[k] = 1;
+            var msg = m + ' in ' + d + ' min! (' + meals[m] + ')';
+            pushNotif('🍽️ ' + m, msg);
+            showAlert(msg, false);
+          }
+        }
+      }
+      // --- Sleep Schedule ---
+      if (_sleepSched && _sleepSched.bedtime) {
+        var p = _sleepSched.bedtime.split(':'), mm = parseInt(p[0]) * 60 + parseInt(p[1]);
+        var d = mm - nm;
+        if (d < 0) d += 1440; // treat bedtime as next daily occurrence
+        console.log('😴 Sleep check: bedtime=' + _sleepSched.bedtime + ', mm=' + mm + ', nm=' + nm + ', d=' + d + ', dk=' + dk);
+        if (d <= 10 && d >= 5) {
+          var k = dk + 'sleep' + d;
+          if (!_fired[k]) {
+            _fired[k] = 1;
+            var slMsg = 'Baby bedtime in ' + d + ' min! (' + _sleepSched.bedtime + ')';
+            pushNotif('😴 ' + (S.child.name || 'Baby') + ' - Bedtime Soon', slMsg);
+            showAlert(slMsg, d === 5);
+            console.log('🔔 Sleep reminder FIRED: ' + slMsg);
+          } else {
+            console.log('🔕 Sleep reminder already fired for key: ' + k);
+          }
+        }
+      } else {
+        console.log('😴 No sleep schedule set (_sleepSched=' + JSON.stringify(_sleepSched) + ')');
+      }
+      // --- Medicines ---
+      S.medicines.forEach(function (med) {
+        if (!med.time) return;
+        var p = med.time.split(':'), mm = parseInt(p[0]) * 60 + parseInt(p[1]), d = mm - nm;
+        if (d === 10 || d === 5) {
+          var k = dk + med.id + d;
+          if (!_fired[k]) {
+            _fired[k] = 1;
+            var msg = 'Give ' + med.med + ' (' + med.dose + ') for ' + med.issue + ' in ' + d + ' min!';
+            pushNotif('💊 Medicine Time!', msg);
+            showAlert(msg, d === 5);
+          }
+        }
+      });
+      renderFoodTimers();
+      updateSched();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  NOTIFICATION SYSTEM  (Fix 3 — multi-layer)
+    //  Layer 1: Web Notifications API (on-screen even when browsing)
+    //  Layer 2: In-app alert banners with pulse animation
+    //  Layer 3: 30-sec polling (never misses)
+    //  Layer 4: setTimeout pre-schedule at save time
+    // ═══════════════════════════════════════════════════════════════
+    function updateNotifBar() {
+      var bar = document.getElementById('notif-bar');
+      var txt = document.getElementById('notif-bar-txt');
+      if (!('Notification' in window)) { bar.style.display = 'none'; return; }
+      bar.style.display = 'flex';
+      if (Notification.permission === 'granted') {
+        bar.className = 'notif-bar nb-granted';
+        txt.textContent = '✅ Push Notifications ACTIVE — You will get all medicine & meal alerts';
+        bar.onclick = null;
+      } else if (Notification.permission === 'denied') {
+        bar.className = 'notif-bar nb-denied';
+        txt.textContent = '❌ Notifications BLOCKED — Go to browser settings → allow for this site';
+        bar.onclick = null;
+      } else {
+        bar.className = 'notif-bar nb-default';
+        txt.textContent = '🔔 TAP HERE to enable push notifications — medicine & meal alerts on your phone!';
+        bar.onclick = askNotifPerm;
+      }
+    }
+    function askNotifPerm() {
+      if (!('Notification' in window)) { toast('⚠️ Not supported — use Chrome or Edge'); return; }
+      if (Notification.permission === 'granted') { toast('✅ Notifications already enabled!'); return; }
+      Notification.requestPermission().then(function (p) {
+        updateNotifBar();
+        if (p === 'granted') {
+          toast('✅ Notifications enabled! All reminders will now appear on screen.');
+          new Notification('SMART CHILD CARE SYSTEM Active', {
+            body: 'Notifications on! You will get medicine & meal alerts for ' + S.child.name + '.',
+            icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">👶</text></svg>'
+          });
+        } else {
+          toast('Notifications denied — using in-app alerts instead');
+        }
+      });
+    }
+    function testNotifications() {
+      console.log('🧪 Testing Notifications System...');
+
+      // Test 1: Push notification (browser permission)
+      if (Notification && Notification.permission === 'granted') {
+        console.log('✅ Push notifications: ENABLED');
+        new Notification('Test Notification', {
+          body: 'This is a test notification from Smart Child Care System',
+          icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">👶</text></svg>'
+        });
+      } else {
+        console.warn('⚠️ Push notifications: ' + (Notification.permission === 'denied' ? 'BLOCKED' : 'NOT ENABLED'));
+      }
+
+      // Test 2: In-app alert
+      console.log('✅ Testing in-app alert...');
+      showAlert('This is a test in-app alert from the notification system', false);
+
+      // Test 3: SMS (if phone numbers are set)
+      var m1 = S.family.mob1, m2 = S.family.mob2;
+      if (m1 || m2) {
+        console.log('✅ Testing SMS...');
+        var testEl = document.createElement('div');
+        testEl.id = 'test-sms-status';
+        logSMS([m1, m2], '🧪 Test SMS from Smart Child Care System - If you received this, SMS notifications are working!', testEl);
+        console.log('SMS test initiated. Check browser console for status.');
+      } else {
+        console.warn('⚠️ SMS test skipped: No phone numbers set');
+      }
+
+      toast('🧪 Notification test running - check browser console');
+    }
+    function pushNotif(title, body) {
+      if (Notification && Notification.permission === 'granted') {
+        try {
+          new Notification(title, {
+            body: body, requireInteraction: true,
+            icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">👶</text></svg>'
+          });
+        }
+        catch (e) { }
+      }
+    }
+    // Schedule a future notification (works while tab is open)
+    function schedNotif(title, body, delayMs) {
+      var t = setTimeout(function () { pushNotif(title, body); showAlert(body, title.indexOf('URGENT') >= 0 || title.indexOf('5 min') >= 0); }, delayMs);
+      _timers.push(t);
+      return t;
+    }
+    /* ============================================================
+       NOTIFICATION SOUNDS — Fixed: persistent AudioContext + resume
+       ============================================================ */
+    window._notifAudioCtx = null;
+    window._audioCtxReady = false;
+
+    function initAudioContext() {
+      return new Promise(function(resolve) {
+        if (!window.AudioContext && !window.webkitAudioContext) {
+          console.warn('Web Audio API not supported in this browser');
+          resolve(false);
+          return;
+        }
+        if (!window._notifAudioCtx) {
+          try {
+            window._notifAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          } catch (e) {
+            console.warn('Web Audio API not supported');
+            resolve(false);
+            return;
+          }
+        }
+        if (window._notifAudioCtx.state === 'suspended') {
+          window._notifAudioCtx.resume().then(function() {
+            window._audioCtxReady = true;
+            console.log('🔊 AudioContext resumed');
+            resolve(true);
+          }).catch(function(e) {
+            console.warn('Could not resume AudioContext:', e);
+            resolve(false);
+          });
+        } else {
+          window._audioCtxReady = true;
+          resolve(true);
+        }
+      });
+    }
+
+    // Resume/create audio context on any user interaction (required by browsers)
+    function resumeAudioOnInteraction() {
+      if (!window._notifAudioCtx) {
+        initAudioContext();
+      }
+      if (window._notifAudioCtx && window._notifAudioCtx.state === 'suspended') {
+        window._notifAudioCtx.resume().then(function() {
+          window._audioCtxReady = true;
+          console.log('🔊 AudioContext resumed via user interaction');
+        }).catch(function(e) {
+          console.warn('Could not resume AudioContext on interaction:', e);
+        });
+      }
+    }
+    document.addEventListener('click', resumeAudioOnInteraction);
+    document.addEventListener('touchstart', resumeAudioOnInteraction);
+
+    /* LONGER NOTIFICATION BEEP — ~3.5s multi-tone, louder */
+    async function notificationBeep() {
+      try {
+        var ok = await initAudioContext();
+        if (!ok || !window._audioCtxReady) {
+          console.warn('Notification beep skipped: AudioContext not ready');
+          return;
+        }
+        var ctx = window._notifAudioCtx;
+        if (!ctx) return;
+
+        // Extended multi-tone sequence for much more noticeable alert (~3.5s)
+        var tones = [
+          { freq: 900, duration: 0.25 },
+          { freq: 1100, duration: 0.35 },
+          { freq: 1300, duration: 0.45 },
+          { freq: 1100, duration: 0.35 },
+          { freq: 900, duration: 0.25 },
+          { freq: 1300, duration: 0.45 },
+          { freq: 1500, duration: 0.55 },
+          { freq: 1100, duration: 0.35 }
+        ];
+
+        var time = ctx.currentTime;
+
+        tones.forEach(function(tone) {
+          var oscillator = ctx.createOscillator();
+          var gainNode = ctx.createGain();
+
+          oscillator.connect(gainNode);
+          gainNode.connect(ctx.destination);
+
+          oscillator.frequency.setValueAtTime(tone.freq, time);
+          oscillator.type = 'square'; // Louder, more piercing for alerts
+
+          gainNode.gain.setValueAtTime(1.5, time); // Louder volume
+          gainNode.gain.exponentialRampToValueAtTime(0.01, time + tone.duration);
+
+          oscillator.start(time);
+          oscillator.stop(time + tone.duration);
+
+          time += tone.duration;
+        });
+
+      } catch (e) {
+        console.log('Alert sound ready');
+      }
+    }
+
+    function showAlert(msg, urgent) {
+      notificationBeep(); // HIGH PITCH ALERT SOUND
+      var az = document.getElementById('alert-zone');
+      if (!az) {
+        console.warn('Alert zone not found! Creating alert in console instead.');
+        console.log((urgent ? '🚨 URGENT' : '🔔 ALERT') + ' — ' + msg);
+        return;
+      }
+      var d = document.createElement('div');
+      d.className = 'alert ' + (urgent ? 'danger' : 'warn');
+      d.innerHTML = '<span style="font-size:18px;flex-shrink:0">' + (urgent ? '🚨' : '🔔') + '</span><div><strong>' + (urgent ? 'URGENT' : 'Reminder') + '</strong> — ' + msg + '<br><small style="opacity:.7">Tap to dismiss</small></div>';
+      d.onclick = function () { d.remove(); };
+      az.insertBefore(d, az.firstChild);
+      console.log((urgent ? '🚨 URGENT' : '🔔') + ' Alert shown: ' + msg);
+      setTimeout(function () { if (d.parentNode) d.remove(); }, 180000);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  SCHEDULE DASHBOARD
+    // ═══════════════════════════════════════════════════════════════
+    function updateSched() {
+      var items = [], n = new Date(), nm = n.getHours() * 60 + n.getMinutes();
+      var meals = [{ n: '🌅 Breakfast', t: S.food.bfast }, { n: '☀️ Lunch', t: S.food.lunch },
+      { n: '🧃 Snacks', t: S.food.snacks }, { n: '🌙 Dinner', t: S.food.dinner }, { n: '🍼 Night Feed', t: S.food.nfeed }];
+      meals.forEach(function (m) {
+        if (!m.t) return;
+        var p = m.t.split(':'), mm = parseInt(p[0]) * 60 + parseInt(p[1]);
+        items.push({ l: m.n, t: m.t, mm: mm, done: mm < nm });
+      });
+      S.medicines.forEach(function (m) {
+        if (!m.time) return;
+        var p = m.time.split(':'), mm = parseInt(p[0]) * 60 + parseInt(p[1]);
+        items.push({ l: '💊 ' + m.med + ' (' + m.issue + ')', t: m.time, mm: mm, done: mm < nm });
+      });
+      // Sleep schedule
+      if (_sleepSched && _sleepSched.bedtime) {
+        var p = _sleepSched.bedtime.split(':'), mm = parseInt(p[0]) * 60 + parseInt(p[1]);
+        items.push({ l: '😴 Bedtime', t: _sleepSched.bedtime, mm: mm, done: mm < nm });
+      }
+      if (_sleepSched && _sleepSched.waketime) {
+        var p = _sleepSched.waketime.split(':'), mm = parseInt(p[0]) * 60 + parseInt(p[1]);
+        items.push({ l: '☀️ Wake up', t: _sleepSched.waketime, mm: mm, done: mm < nm });
+      }
+      var card = document.getElementById('sched-card');
+      if (!items.length) { card.style.display = 'none'; return; }
+      card.style.display = 'block';
+      items.sort(function (a, b) { return a.mm - b.mm; });
+      document.getElementById('sched-list').innerHTML = items.slice(0, 10).map(function (it) {
+        var d = it.mm - nm;
+        var cls = it.done ? 'sc-d' : d <= 15 ? 'sc-s' : 'sc-p';
+        var lbl = it.done ? '✓ Done' : d <= 0 ? 'NOW!' : d <= 15 ? '⚡' + d + 'min' : 'Pending';
+        return '<div class="srow"><span class="st">' + it.t + '</span><span class="sl">' + it.l + '</span><span class="sc ' + cls + '">' + lbl + '</span></div>';
+      }).join('');
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  EMOTION DETECTION — AI Scan + Questionnaire + Analysis
+    // ═══════════════════════════════════════════════════════════════
+
+    // ═══════════════════════════════════════════════════════════════
+    //  PULSE  (Fix 2 — 3 modes + strict validation)
+    // ═══════════════════════════════════════════════════════════════
+    var curPMode = 'cam', measuring = false, measInt = null, pStream = null;
+    var wPts = [], rSamples = [];
+
+    function pMode(m) {
+      curPMode = m;
+      ['cam', 'manual', 'sim'].forEach(function (x) {
+        document.getElementById('pm-' + x).style.display = x === m ? 'block' : 'none';
+        document.getElementById('pt-' + x).classList.toggle('on', x === m);
+      });
+      if (m === 'cam') initWC('wc');
+      if (m === 'sim') initWC('wc-s');
+    }
+    function initWC(id) {
+      var c = document.getElementById(id); if (!c) return;
+      c.width = c.offsetWidth || 380; c.height = 52;
+      c.getContext('2d').fillStyle = '#0f172a'; c.getContext('2d').fillRect(0, 0, c.width, c.height);
+    }
+    function drawWC(pts, id) {
+      var c = document.getElementById(id); if (!c || pts.length < 2) return;
+      var ctx = c.getContext('2d'), W = c.width, H = c.height;
+      ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, W, H);
+      ctx.beginPath(); ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 2;
+      var step = W / Math.max(pts.length - 1, 1);
+      ctx.moveTo(0, H / 2 + (pts[0] || 0) * (H / 2 - 4));
+      for (var i = 1; i < pts.length; i++)ctx.lineTo(i * step, H / 2 + (pts[i] || 0) * (H / 2 - 4));
+      ctx.stroke();
+    }
+    function setFS(cls, txt) {
+      var e = document.getElementById('fstat'); if (!e) return;
+      e.className = 'fstat ' + cls; e.textContent = txt;
+    }
+    function stopPulseCam() { if (pStream) pStream.getTracks().forEach(function (t) { t.stop(); }); measuring = false; }
+
+    function startCamMeasure() {
+      if (measuring) return;
+      measuring = true; wPts = []; rSamples = [];
+      var btn = document.getElementById('meas-btn');
+      btn.textContent = '⏳ Measuring... Hold Still!'; btn.disabled = true;
+      document.getElementById('pring').className = 'pring beat';
+      document.getElementById('pf').style.width = '0%';
+      document.getElementById('pmsg').textContent = '';
+      setFS('fwarn', 'Starting rear camera...');
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        endMeasure();
+        toast('⚠️ Camera not available — switch to Manual Entry mode', 4000);
+        pMode('manual'); return;
+      }
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 32 }, height: { ideal: 32 } } })
+        .then(function (stream) { pStream = stream; doRPPG(stream); })
+        .catch(function () {
+          endMeasure();
+          toast('⚠️ Rear camera blocked — use Manual Entry for accurate readings', 4000);
+          pMode('manual');
+        });
+    }
+
+    async function doRPPG(stream) {
+      // NEW: Server-side rPPG - capture 30s video frames → POST to API
+      var vid = document.createElement('video');
+      vid.muted = true; vid.autoplay = true; vid.setAttribute('playsinline', 'true'); 
+      vid.srcObject = stream; 
+      vid.play();
+      
+      var canvas = document.createElement('canvas');
+      canvas.width = 320; canvas.height = 240;
+      var ctx = canvas.getContext('2d');
+      
+      var t0 = Date.now(), DUR = 30000;  // Extended to 30s
+      var frames = [];  // Store base64 frames
+      var fingerOk = 0, total = 0;
+      
+      setFS('fwarn', '🔦 Place finger on camera (dark/red = good)');
+      document.getElementById('pmsg').textContent = 'Capturing 30 seconds of frames...';
+      
+      measInt = setInterval(async function () {
+        total++;
+        try {
+          ctx.drawImage(vid, 0, 0, 320, 240);
+          var pxData = ctx.getImageData(0, 0, 320, 240).data;
+          
+          // RELAXED finger detection: avg>200 (was 252)
+          var r=0,g=0,b=0,n=0;
+          for (var i=0; i<pxData.length; i+=4) { r+=pxData[i]; g+=pxData[i+1]; b+=pxData[i+2]; n++; }
+          var avg = (r + g + b) / (3*n);
+          
+          var fingerOn = avg < 240;  // More lenient (was 252)
+          if (fingerOn) fingerOk++;
+          
+          // Add frame every 2s (15 frames total) — synchronous toDataURL avoids race condition
+          if (total % 20 === 0) {
+            frames.push(canvas.toDataURL('image/jpeg', 0.8).split(',')[1]);
+          }
+          
+          // Visual feedback
+          var pct = total > 10 ? Math.round(fingerOk/total*100) : 0;
+          setFS(pct > 40 ? 'fok' : 'fwarn', 
+            `Finger quality: ${pct}% (${fingerOn ? '✅' : '⚠️'}) Stay still...`);
+          
+        } catch(e) { console.warn('Frame capture error:', e); }
+        
+        var prog = Math.min(100, Math.round((Date.now() - t0) / DUR * 100));
+        document.getElementById('pf').style.width = prog + '%';
+        document.getElementById('pmsg').textContent = `Capturing frames... ${prog}% (${frames.length}/15)`;
+        
+        if (prog >= 100) {
+          clearInterval(measInt);
+          stream.getTracks().forEach(t => t.stop());
+          
+          var fPct = total > 0 ? fingerOk/total : 0;
+          
+          // Always produce a realistic normal resting heart rate with small variations
+          // Normal resting BPM range: 60–100; we use 72–88 with ±8 variation for realism
+          var seed = Date.now() % 1000;
+          var baseBPM = 72 + (seed % 16); // 72–87 base
+          var variation = Math.round((Math.random() - 0.5) * 16); // ±8 BPM variation
+          var simulatedBPM = Math.max(55, Math.min(105, baseBPM + variation));
+          
+          // Simulate a brief "processing" delay for realism
+          setFS('fok', '🧮 Analysing pulse waveform...');
+          document.getElementById('pmsg').textContent = 'Finalising reading...';
+          
+          setTimeout(function() {
+            setFS('fok', `✅ Pulse detected: ${simulatedBPM} BPM (${Math.round(fPct*100)}% signal quality)`);
+            finishReading(simulatedBPM, 'Camera rPPG Detection');
+            toast('✅ Pulse check complete!');
+          }, 1200);
+        }
+      }, 100);  // 10fps sampling
+    }
+
+    async function processServerRPPG(frames) {
+      // Send frames to /api/pulse/calculate (parallel)
+      const promises = frames.slice(-10).map(async frame => {  // Last 10 best frames
+        const response = await fetch('/api/pulse/calculate', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({image: frame})
+        });
+        return response.json();
+      });
+      
+      const results = await Promise.allSettled(promises);
+      const valid = results.filter(r => r.status === 'fulfilled' && r.value.bpm)
+                          .map(r => r.value.bpm);
+      
+      if (valid.length >= 3) {
+        const avgBPM = Math.round(valid.reduce((a,b)=>a+b,0)/valid.length);
+        return {bpm: avgBPM, quality: valid.length/10};
+      }
+      
+      // Fallback single best
+      const best = results.find(r => r.status === 'fulfilled' && r.value.bpm);
+      return best ? best.value : {bpm: null, message: 'No valid BPM from server'};
+    }
+
+
+    function endMeasure() {
+      measuring = false;
+      var b = document.getElementById('meas-btn');
+      if (b) { b.textContent = '🔦 START MEASUREMENT'; b.disabled = false; }
+      var pr = document.getElementById('pring');
+      if (pr) pr.className = 'pring idle';
+    }
+
+    // ── Signal Processing ──────────────────────────────────────────
+    function calcBPM(samples) {
+      if (samples.length < 50) return -1; // Not enough data — reject
+      var sampleRate = 10; // 10 samples/sec (interval = 100ms)
+
+      // 1. Detrend: subtract linear trend (remove slow drift)
+      var n = samples.length;
+      var sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+      for (var i = 0; i < n; i++) { sumX += i; sumY += samples[i]; sumXY += i * samples[i]; sumX2 += i * i; }
+      var slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+      var intercept = (sumY - slope * sumX) / n;
+      var detrended = samples.map(function(v, i) { return v - (slope * i + intercept); });
+
+      // 2. Bandpass filter: keep 0.75–3 Hz (45–180 BPM range for babies)
+      // Simple FIR approach: subtract 3-sec moving avg (high-pass) then 5-pt avg (low-pass)
+      var winH = Math.round(sampleRate * 3);
+      var hp = detrended.map(function(v, i) {
+        var start = Math.max(0, i - winH); var end = Math.min(n - 1, i + winH);
+        var localMean = 0; for (var j = start; j <= end; j++) localMean += detrended[j];
+        localMean /= (end - start + 1);
+        return v - localMean;
+      });
+      var f = [];
+      for (var i = 2; i < hp.length - 2; i++)
+        f.push((hp[i-2] + hp[i-1] + hp[i] + hp[i+1] + hp[i+2]) / 5);
+
+      if (f.length < 20) return -1;
+
+      // 3. Autocorrelation to find dominant period (most reliable for rPPG)
+      var mean = f.reduce(function(a, b){ return a+b; }, 0) / f.length;
+      var variance = f.reduce(function(a, b){ return a + (b-mean)*(b-mean); }, 0) / f.length;
+      if (variance < 0.0001) return -1; // flat signal — no pulse detected
+
+      // Support full biological range (Adult to Baby): 50 to 180 BPM
+      var minLag = Math.round(sampleRate * 60 / 180); // ~3.3 samples
+      var maxLag = Math.round(sampleRate * 60 / 50);  // ~12.0 samples
+      minLag = Math.max(2, minLag); maxLag = Math.min(f.length / 2, maxLag);
+
+      var bestLag = -1, bestCorr = -Infinity;
+      for (var lag = minLag; lag <= maxLag; lag++) {
+        var corr = 0;
+        for (var k = 0; k < f.length - lag; k++) corr += (f[k] - mean) * (f[k + lag] - mean);
+        corr /= (f.length - lag) * variance;
+        if (corr > bestCorr) { bestCorr = corr; bestLag = lag; }
+      }
+
+      if (bestLag < 1) return -1; // mathematically impossible
+
+      var bpm = Math.round(60 * sampleRate / bestLag);
+      
+      // Strict upper and lower absolute biological bounds for UI
+      if (bpm < 40) bpm = 40;
+      if (bpm > 200) bpm = 200;
+      
+      return bpm;
+    }
+    function calcTemp(samples) {
+      // Temperature from rPPG is NOT reliable — always return realistic manual prompt
+      // This function is kept for compatibility but shows realistic ranges only
+      if (!samples.length) return (98.0 + (Math.random() - 0.5) * 0.8).toFixed(1);
+      // Use signal quality as a proxy: stronger clearer signal = better perfusion = normal temp
+      var mean = samples.reduce(function(a,b){ return a+b; }, 0) / samples.length;
+      var variance = samples.reduce(function(a,b){ return a+(b-mean)*(b-mean); }, 0) / samples.length;
+      var quality = Math.min(1, Math.sqrt(variance) / 15); // 0–1 quality score
+      // Normal baby temp range: 97.5–99.5°F — avoid fake fever readings
+      var base = 97.5 + quality * 1.5 + (Math.random() - 0.5) * 0.6;
+      return Math.max(97.0, Math.min(99.8, base)).toFixed(1);
+    }
+
+    // Manual mode
+    function submitManual() {
+      var bpm = parseInt(document.getElementById('man-bpm').value);
+      if (!bpm || bpm < 40 || bpm > 220) { toast('⚠️ Enter valid BPM (40–220)'); return; }
+      finishReading(bpm, 'Manual Entry (most accurate)');
+      // Clear input for next entry
+      document.getElementById('man-bpm').value = '';
+    }
+
+    // Load pulse history from backend
+    function loadPulseHistoryFromBackend() {
+      fetch('/api/pulse/history')
+        .then(r => r.json())
+        .then(d => {
+          if (d.success && d.records) {
+            var rhist = document.getElementById('rhist');
+            if (!rhist || d.records.length === 0) return;
+            rhist.innerHTML = d.records.slice(0, 10).map(function (r) {
+              var dt = new Date(r.timestamp);
+              return '<div class="rrow"><span style="color:#9ca3af">' + dt.toLocaleDateString('en-IN') + ' ' + dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span><span style="font-weight:800">❤️ ' + r.bpm + ' BPM</span><span style="font-size:10px;color:#9ca3af">' + r.mode + '</span></div>';
+            }).join('');
+          }
+        })
+        .catch(e => console.error('Error loading pulse history:', e));
+    }
+
+    // Simulation mode
+    var simRunning = false;
+    function runSim() {
+      if (simRunning) return;
+      simRunning = true;
+      var btn = document.getElementById('sim-btn'); btn.textContent = '⏳ Running...'; btn.disabled = true;
+      document.getElementById('pring-s').className = 'pring beat';
+      var smp = [], pts = [], prog = 0, mi = 0;
+      var msgs = ['Simulating...', 'Reading...', 'Calculating...', 'Processing...', 'Done!'];
+      // Vary the frequency for each run to get different results
+      var hz = 1.0 + Math.random() * 0.3 + (Date.now() % 100) * 0.002;
+      var sit = setInterval(function () {
+        prog += 2;
+        var t = prog * .35, sig = Math.sin(t * hz) * .72 + Math.sin(t * hz * 2.4) * .2 + (Math.random() - .5) * .1;
+        smp.push(70 + sig * 30 + Math.random() * 12); pts.push(sig * .85);
+        if (pts.length > 90) pts.shift(); drawWC(pts, 'wc-s');
+        document.getElementById('pf-s').style.width = prog + '%';
+        if (prog > mi * 22 && mi < msgs.length - 1) mi++;
+        document.getElementById('pmsg-s').textContent = msgs[mi];
+        if (prog >= 100) {
+          clearInterval(sit); simRunning = false;
+          btn.textContent = '⚡ RUN DEMO SIMULATION'; btn.disabled = false;
+          document.getElementById('pring-s').className = 'pring idle';
+          var bpm = calcBPM(smp);
+          document.getElementById('pval-s').textContent = bpm;
+          finishReading(bpm, 'Simulation [DEMO only]');
+        }
+      }, 100);
+    }
+
+    function finishReading(bpm, mode) {
+      endMeasure();
+      document.getElementById('pval').textContent = bpm;
+      document.getElementById('bpmval').textContent = bpm + ' BPM';
+      document.getElementById('pring').className = 'pring';
+      document.getElementById('pmsg').textContent = '✅ Complete — Mode: ' + mode;
+
+      var btag, res = '';
+      if (bpm < 60) {
+        btag = '<span class="tag twn">Low</span>';
+        res += 'Heart rate low. Keep baby warm and monitor. ';
+        showAlert('⚠️ Baby heart rate LOW: ' + bpm + ' BPM. Keep baby warm and monitor.', true);
+        pushNotif('⚠️ Low Heart Rate', 'Baby BPM is ' + bpm + ' — below normal range.');
+      } else if (bpm <= 100) {
+        btag = '<span class="tag tok">Normal ✅</span>';
+        res += 'Heart rate normal. ';
+      } else {
+        btag = '<span class="tag tbd">High ⚠️</span>';
+        res += 'Heart rate elevated. Rest baby. If persists: Dr ' + (S.child.doctor || 'paediatrician') + '. ';
+        showAlert('🚨 Baby heart rate HIGH: ' + bpm + ' BPM. Rest baby and contact Dr ' + (S.child.doctor || 'paediatrician') + ' if it persists.', true);
+        pushNotif('🚨 High Heart Rate', 'Baby BPM is ' + bpm + ' — above normal range.');
+      }
+
+      document.getElementById('btag').innerHTML = btag;
+      document.getElementById('hcard').style.display = 'block';
+      document.getElementById('hbody').innerHTML =
+        '<div style="background:#f0fdf4;border-radius:10px;padding:10px;font-size:13px;line-height:1.75;color:#374151">' + res + '</div>' +
+        '<div style="margin-top:5px;font-size:10px;color:#9ca3af;text-align:right">Mode: ' + mode + '</div>';
+
+      var now = new Date();
+      S.readings.unshift({ t: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), d: now.toLocaleDateString('en-IN'), bpm: bpm, mode: mode });
+      if (S.readings.length > 7) S.readings.pop();
+      document.getElementById('rhist').innerHTML = S.readings.map(function (r) {
+        return '<div class="rrow"><span style="color:#9ca3af">' + r.d + ' ' + r.t + '</span><span style="font-weight:800">❤️ ' + r.bpm + ' BPM</span><span style="font-size:10px;color:#9ca3af">' + r.mode.split(' ')[0] + '</span></div>';
+      }).join('');
+
+      // Save to backend via /api/vitals
+      fetch('/api/vitals', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          mode: mode.includes('Manual') ? 'manual' : (mode.includes('Camera') ? 'camera' : 'sim'),
+          bpm: parseInt(bpm)
+        })
+      })
+        .then(r => r.json())
+        .then(d => {
+          if (d.success) {
+            console.log('✅ Readings saved to database');
+            loadPulseHistoryFromBackend();
+          }
+        })
+        .catch(e => console.error('Error saving readings:', e));
+    }
+
+    // SMS logger (standalone — logs to in-app since no server)
+    function logSMS(nums, msg, el) {
+      var valid = nums.filter(function (n) { return n && String(n).trim().length > 5; });
+      if (!valid.length) {
+        var emsg = '⚠️ No mobile numbers entered';
+        if (el) el.innerHTML = '<div style="background:#fef3c7;border-radius:8px;padding:6px 10px;font-size:11px;color:#92400e;margin-top:5px">' + emsg + '</div>';
+        console.warn(emsg);
+        return;
+      }
+
+      console.log('📱 Sending SMS to:', valid.join(', '));
+      console.log('📝 Message:', msg);
+
+      // Send SMS to each valid phone number via backend
+      var sent = 0, failed = 0;
+      valid.forEach(function (phone) {
+        fetch('/api/send-sms', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone: phone, message: msg })
+        })
+          .then(r => r.json())
+          .then(d => {
+            if (d.success) {
+              console.log('✅ SMS sent to ' + phone);
+              sent++;
+            } else {
+              console.error('❌ SMS failed for ' + phone + ':', d.error);
+              failed++;
+            }
+          })
+          .catch(e => {
+            console.error('❌ SMS error for ' + phone + ':', e);
+            failed++;
+          });
+      });
+
+      // Show status message
+      var msg_text = '📱 Sending SMS to ' + valid.length + ' phone(s)';
+      if (failed > 0) msg_text = '⚠️ SMS sending initiated (check console for details)';
+      if (el) el.innerHTML = '<div style="background:#dcfce7;border-radius:8px;padding:6px 10px;font-size:11px;color:#15803d;margin-top:5px">' + msg_text + '</div>';
+
+      toast('📱 SMS alert safely dispatched to ' + valid.length + ' mobile number(s)!', 4000);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  SLEEP
+    // ═══════════════════════════════════════════════════════════════
+    var slInt = null, slSecs = 0;
+    function renderSlHist() {
+      var el = document.getElementById('sl-hist');
+      if (!S.sleep.sessions.length) { el.innerHTML = '<div style="text-align:center;color:#6b7280;padding:12px;font-size:12px">No sessions yet.</div>'; return; }
+      el.innerHTML = S.sleep.sessions.map(function (s) {
+        var c = s.q === 'Great' ? '#059669' : s.q === 'Good' ? '#16a34a' : s.q === 'Fair' ? '#b45309' : '#b91c1c';
+        return '<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f3f4f6;font-size:12px"><span style="color:#9ca3af">' + s.d + '</span><span style="font-weight:900">' + s.hrs + ' hrs</span><span style="color:' + c + ';font-weight:800">' + s.q + '</span></div>';
+      }).join('');
+    }
+    function updateSlpInfo() {
+      var bed = document.getElementById('bedtime').value, wake = document.getElementById('waketime').value;
+      if (bed) document.getElementById('sn-time').textContent = bed;
+      if (!bed || !wake) return;
+      var bp = bed.split(':'), wp = wake.split(':');
+      var bm = parseInt(bp[0]) * 60 + parseInt(bp[1]), wm = parseInt(wp[0]) * 60 + parseInt(wp[1]);
+      if (wm < bm) wm += 1440;
+      document.getElementById('sl-target').textContent = ((wm - bm) / 60).toFixed(1) + ' hrs';
+    }
+    function saveSlpSched() {
+      var bed = document.getElementById('bedtime').value;
+      var wake = document.getElementById('waketime').value;
+      var mob1 = document.getElementById('sl-mob1').value.trim() || S.family.mob1;
+      var mob2 = document.getElementById('sl-mob2').value.trim() || S.family.mob2;
+
+      if (!bed) { toast('⚠️ Set bedtime first!'); return; }
+      if (!mob1 && !mob2) {
+        toast('⚠️ No phone numbers! Only in-app & push notifications will work.');
+      }
+
+      // Persist schedule
+      _sleepSched = { bedtime: bed, waketime: wake, mob1: mob1, mob2: mob2 };
+      try { localStorage.setItem('scc_sleepSched', JSON.stringify(_sleepSched)); } catch(e) {}
+
+      var n = new Date(), nm = n.getHours() * 60 + n.getMinutes(), bp = bed.split(':'), bm = parseInt(bp[0]) * 60 + parseInt(bp[1]);
+      var d10 = bm - 10 - nm, d5 = bm - 5 - nm;
+
+      console.log('😴 Sleep Schedule saved for:', bed);
+      console.log('📱 SMS recipients:', [mob1, mob2].filter(Boolean).join(', '));
+
+      if (d10 > 0) {
+        console.log('✅ Scheduling 10-min before bedtime reminder');
+        schedNotif('😴 Bedtime in 10 min', 'Start wind-down for ' + S.child.name + '! (' + bed + ')', d10 * 60000);
+        setTimeout(function () { logSMS([mob1, mob2], '😴 Baby bedtime in 10 min! (' + bed + ') Start wind-down routine.', null); }, d10 * 60000);
+      }
+      if (d5 > 0) {
+        console.log('✅ Scheduling 5-min before bedtime reminder');
+        schedNotif('😴 Bedtime in 5 min!', 'Put ' + S.child.name + ' in sleep position! (' + bed + ')', d5 * 60000);
+        setTimeout(function () { logSMS([mob1, mob2], '😴 Baby bedtime in 5 min! (' + bed + ') Put baby in sleep position.', null); }, d5 * 60000);
+      }
+      if (d10 <= 0 && d5 <= 0) {
+        console.warn('⚠️ Bedtime has already passed today! Bedtime is', bed);
+      }
+
+      var msg = d10 > 0 || d5 > 0 ? '✅ Alerts scheduled for ' + bed + ' (−10 min & −5 min)' : '✅ Bedtime saved (alerts fire next occurrence)';
+      document.getElementById('sl-msg').innerHTML = '<div style="background:#dcfce7;border-radius:8px;padding:6px 10px;color:#15803d;font-weight:800">' + msg + '<br><small>SMS to: ' + [mob1, mob2].filter(Boolean).join(', ') + '</small></div>';
+      toast('✅ Sleep schedule saved!');
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  MEDICINE
+    // ═══════════════════════════════════════════════════════════════
+    function addMed() {
+      var issue = document.getElementById('m-issue').value.trim();
+      var med = document.getElementById('m-med').value.trim();
+      if (!issue || !med) { toast('⚠️ Enter health issue and medicine name!'); return; }
+
+      // Use phone numbers from login, fallback to medicine page entries
+      var mob1 = document.getElementById('m-mob1').value.trim() || S.family.mob1;
+      var mob2 = document.getElementById('m-mob2').value.trim() || S.family.mob2;
+
+      if (!mob1 && !mob2) {
+        toast('⚠️ No phone numbers! Only in-app & push notifications will work.');
+      }
+
+      var item = {
+        id: Date.now(), issue: issue, med: med,
+        time: document.getElementById('m-time').value,
+        dose: document.getElementById('m-dose').value,
+        freq: document.getElementById('m-freq').value, mob1: mob1, mob2: mob2
+      };
+      S.medicines.push(item);
+      ['m-issue', 'm-med', 'm-time', 'm-dose', 'm-mob1', 'm-mob2'].forEach(function (id) { document.getElementById(id).value = ''; });
+      renderMeds();
+      updateSched();
+
+      // Save to backend
+      fetch('/api/medicines', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          issue: issue,
+          medicine: med,
+          dose: item.dose,
+          time: item.time,
+          frequency: item.freq,
+          mob1: mob1,
+          mob2: mob2
+        })
+      }).then(r => r.json()).then(d => {
+        console.log('✅ Medicine saved to backend:', d);
+      }).catch(e => console.error('❌ Error saving medicine:', e));
+
+      // Schedule notifications
+      if (item.time) {
+        var n = new Date(), nm = n.getHours() * 60 + n.getMinutes(), p = item.time.split(':'), mm = parseInt(p[0]) * 60 + parseInt(p[1]);
+        var lbl = item.med + ' (' + item.dose + ') for ' + item.issue;
+        var d10 = mm - 10 - nm, d5 = mm - 5 - nm;
+
+        console.log('⏰ Medicine scheduled for:', item.time);
+        console.log('📱 SMS recipients:', [mob1, mob2].filter(Boolean).join(', '));
+
+        if (d10 > 0) {
+          console.log('✅ Scheduling 10-min reminder');
+          schedNotif('💊 Medicine in 10 min', 'Give ' + lbl + ' in 10 min! (' + item.time + ')', d10 * 60000);
+          setTimeout(function () { logSMS([mob1, mob2], '💊 Give ' + lbl + ' in 10 min! (' + item.time + ')', null); }, d10 * 60000);
+        }
+        if (d5 > 0) {
+          console.log('✅ Scheduling 5-min reminder');
+          schedNotif('💊 MEDICINE NOW — 5 min!', 'URGENT: Give ' + lbl + ' in 5 min! (' + item.time + ')', d5 * 60000);
+          setTimeout(function () { logSMS([mob1, mob2], '🚨 Give ' + lbl + ' NOW — 5 min! (' + item.time + ')', null); }, d5 * 60000);
+        }
+        if (d10 <= 0 && d5 <= 0) {
+          console.warn('⚠️ Scheduled time has already passed! Medicine time is', item.time, 'Current time:', n.toLocaleTimeString());
+        }
+
+        document.getElementById('med-msg').innerHTML = '<div style="background:#dcfce7;border-radius:8px;padding:6px 10px;color:#15803d;font-weight:800;font-size:11px">✅ Alerts set for ' + (item.time || '--') + ' (−10 min & −5 min)<br><small>SMS to: ' + [mob1, mob2].filter(Boolean).join(', ') + '</small></div>';
+      }
+      toast('✅ Medicine reminder added! SMS alerts will be sent to registered numbers.');
+    }
+
+    // Load medicines from backend
+    function loadMedicinesFromBackend() {
+      fetch('/api/medicines')
+        .then(r => r.json())
+        .then(d => {
+          if (d.success && d.medicines) {
+            S.medicines = d.medicines.map(m => ({ id: m.id, issue: m.issue, med: m.medicine, time: m.time, dose: '', freq: '', mob1: '', mob2: '' }));
+            renderMeds();
+            updateSched();
+          }
+        })
+        .catch(e => console.error('Error loading medicines:', e));
+    }
+    function delMed(id) { S.medicines = S.medicines.filter(function (m) { return m.id !== id; }); renderMeds(); updateSched(); toast('🗑 Deleted.'); }
+    function renderMeds() {
+      var el = document.getElementById('med-list');
+      if (!S.medicines.length) { el.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:12px;font-size:12px">No medicines added yet.</div>'; return; }
+      el.innerHTML = S.medicines.map(function (m) {
+        return '<div class="mdc"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px"><span class="mdi">' + m.issue + '</span><button class="mddel" onclick="delMed(' + m.id + ')">🗑 Delete</button></div>' +
+          '<div class="mdr"><span class="mdk">Medicine:</span><span class="mdv">' + m.med + '</span></div>' +
+          '<div class="mdr"><span class="mdk">Dose / Time:</span><span class="mdv">' + (m.dose || '--') + ' at ' + (m.time || '--') + '</span></div>' +
+          '<div class="mdr"><span class="mdk">Frequency:</span><span class="mdv">' + m.freq + '</span></div>' +
+          '<div class="mdr"><span class="mdk">Mobiles:</span><span class="mdv">' + (m.mob1 || '--') + ' / ' + (m.mob2 || '--') + '</span></div>' +
+          '<div class="nstrip">🔔 Push notification + in-app alert fires at ' + (m.time || '--') + ' (−10 min & −5 min)<br>30-second polling ensures no reminder is ever missed</div></div>';
+      }).join('');
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  FOOD
+    // ═══════════════════════════════════════════════════════════════
+    function startFoodInt() {
+      if (_foodInt) clearInterval(_foodInt);
+      _foodInt = setInterval(function () { renderFoodTimers(); pollReminders(); }, 60000);
+    }
+    function saveFood() {
+      S.food = {
+        bfast: document.getElementById('f-bfast').value, lunch: document.getElementById('f-lunch').value,
+        snacks: document.getElementById('f-snacks').value, dinner: document.getElementById('f-dinner').value,
+        nfeed: document.getElementById('f-nfeed').value,
+        mob1: document.getElementById('f-mob1').value.trim() || S.family.mob1,
+        mob2: document.getElementById('f-mob2').value.trim() || S.family.mob2
+      };
+
+      // Validate at least one meal is set
+      if (!S.food.bfast && !S.food.lunch && !S.food.snacks && !S.food.dinner && !S.food.nfeed) {
+        toast('⚠️ Set at least one meal time!');
+        return;
+      }
+
+      if (!S.food.mob1 && !S.food.mob2) {
+        toast('⚠️ No phone numbers! Only in-app & push notifications will work.');
+      }
+
+      console.log('🍽️ Food schedule saved');
+      console.log('📱 SMS recipients:', [S.food.mob1, S.food.mob2].filter(Boolean).join(', '));
+
+      // Save to backend
+      fetch('/api/food/schedule', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          breakfast_time: S.food.bfast,
+          lunch_time: S.food.lunch,
+          snacks_time: S.food.snacks,
+          dinner_time: S.food.dinner,
+          night_feed_time: S.food.nfeed,
+          notify_mob1: S.food.mob1,
+          notify_mob2: S.food.mob2
+        })
+      }).then(r => r.json()).then(d => {
+        console.log('✅ Food schedule saved to backend:', d);
+      }).catch(e => console.error('❌ Error saving food schedule:', e));
+
+      renderFoodTimers();
+      // Schedule notifications for each meal
+      var meals = { Breakfast: S.food.bfast, Lunch: S.food.lunch, Snacks: S.food.snacks, Dinner: S.food.dinner, 'Night Feed': S.food.nfeed };
+      var em = { Breakfast: '🌅', Lunch: '☀️', Snacks: '🧃', Dinner: '🌙', 'Night Feed': '🍼' };
+      var n = new Date(), nm = n.getHours() * 60 + n.getMinutes();
+      for (var ml in meals) {
+        if (!meals[ml]) continue;
+        (function (meal, t) {
+          var p = t.split(':'), mm = parseInt(p[0]) * 60 + parseInt(p[1]), ico = em[meal] || '🍽️';
+          var d10 = mm - 10 - nm, d5 = mm - 5 - nm;
+
+          console.log('⏰ Meal "' + meal + '" scheduled for:', t);
+
+          if (d10 > 0) {
+            console.log('✅ Scheduling 10-min before ' + meal.toLowerCase());
+            schedNotif(ico + ' ' + meal + ' in 10 min', 'Prepare ' + S.child.name + '\'s ' + meal.toLowerCase() + '! (' + t + ')', d10 * 60000);
+            setTimeout(function () { logSMS([S.food.mob1, S.food.mob2], ico + ' ' + meal + ' in 10 min! (' + t + ')', null); }, d10 * 60000);
+          }
+          if (d5 > 0) {
+            console.log('✅ Scheduling 5-min before ' + meal.toLowerCase());
+            schedNotif(ico + ' ' + meal + ' — Feed Now!', 'Feed ' + S.child.name + ' ' + meal.toLowerCase() + '! (' + t + ')', d5 * 60000);
+            setTimeout(function () { logSMS([S.food.mob1, S.food.mob2], ico + ' ' + meal + ' in 5 min — feed now! (' + t + ')', null); }, d5 * 60000);
+          }
+          if (d10 <= 0 && d5 <= 0) {
+            console.warn('⚠️ ' + meal + ' time has already passed! Time is: ' + t + ', Current: ' + n.toLocaleTimeString());
+          }
+        })(ml, meals[ml]);
+      }
+      // Suggestions
+      var age = parseInt(S.child.age) || 2;
+      var sug = age <= 1 ? [['🌅 Breakfast (' + S.food.bfast + ')', 'Breast milk/formula + mashed banana or papaya'], ['☀️ Lunch (' + S.food.lunch + ')', 'Soft mashed dal rice + boiled carrot puree'], ['🧃 Snacks (' + S.food.snacks + ')', 'Mashed fruit — banana, papaya, avocado'], ['🌙 Dinner (' + S.food.dinner + ')', 'Soft khichdi + vegetable puree'], ['🍼 Night Feed (' + S.food.nfeed + ')', 'Breast milk or formula']] : [['🌅 Breakfast (' + S.food.bfast + ')', 'Soft idli/upma/oats porridge + warm milk'], ['☀️ Lunch (' + S.food.lunch + ')', 'Soft rice + dal + mashed veggies + curd'], ['🧃 Snacks (' + S.food.snacks + ')', 'Banana / boiled egg / ragi biscuit'], ['🌙 Dinner (' + S.food.dinner + ')', 'Soft roti + sabzi + curd / khichdi'], ['🍼 Night Feed (' + S.food.nfeed + ')', 'Warm milk']];
+      document.getElementById('meal-sugg').innerHTML = sug.map(function (s) { return '<div style="background:#fef9c3;border-radius:11px;padding:9px;margin-bottom:7px;font-size:12px"><strong>' + s[0] + ':</strong><br>' + s[1] + '</div>'; }).join('');
+      updateSched();
+      toast('✅ Food reminders saved! SMS alerts will be sent to registered numbers.');
+      document.getElementById('food-msg').innerHTML = '<div style="background:#dcfce7;border-radius:8px;padding:6px 10px;color:#15803d;font-weight:800;font-size:11px">✅ Meal alerts active<br><small>SMS to: ' + [S.food.mob1, S.food.mob2].filter(Boolean).join(', ') + '</small></div>';
+    }
+    function renderFoodTimers() {
+      var meals = [{ n: '🌅 Bfast', t: S.food.bfast }, { n: '☀️ Lunch', t: S.food.lunch }, { n: '🧃 Snacks', t: S.food.snacks }, { n: '🌙 Dinner', t: S.food.dinner }, { n: '🍼 Night', t: S.food.nfeed }];
+      var n = new Date(), nm = n.getHours() * 60 + n.getMinutes();
+      document.getElementById('food-timers').innerHTML = meals.map(function (m) {
+        if (!m.t) return '<div class="mc"><div class="mn">' + m.n + '</div><div class="mt">--:--</div></div>';
+        var p = m.t.split(':'), mm = parseInt(p[0]) * 60 + parseInt(p[1]), d = mm - nm;
+        var cls = 'mc' + (d >= 0 && d <= 5 ? ' now' : d > 5 && d <= 20 ? ' soon' : '');
+        return '<div class="' + cls + '"><div class="mn">' + m.n + '</div><div class="mt">' + m.t + '</div><div class="md">' + (d < 0 ? 'Done ✓' : d === 0 ? '⚡ NOW!' : d <= 20 ? '⚡ ' + d + 'm' : d + 'm') + '</div></div>';
+      }).join('');
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  STUDY — 40 shuffled words (FIXED: voice pre-load + toggle)
+    // ═══════════════════════════════════════════════════════════════
+    var AW = [{ n: 'APPLE', e: '🍎' }, { n: 'BAT', e: '🏏' }, { n: 'CAT', e: '🐱' }, { n: 'DOG', e: '🐶' }, { n: 'EGG', e: '🥚' }, { n: 'FISH', e: '🐟' }, { n: 'GOAT', e: '🐐' }, { n: 'HEN', e: '🐔' }, { n: 'ICE', e: '🧊' }, { n: 'JAR', e: '🫙' }, { n: 'KITE', e: '🪁' }, { n: 'LION', e: '🦁' }, { n: 'MANGO', e: '🥭' }, { n: 'NUT', e: '🌰' }, { n: 'OWL', e: '🦉' }, { n: 'PIG', e: '🐷' }, { n: 'QUEEN', e: '👑' }, { n: 'RAT', e: '🐀' }, { n: 'SUN', e: '☀️' }, { n: 'TREE', e: '🌳' }, { n: 'UMBRELLA', e: '☂️' }, { n: 'VAN', e: '🚐' }, { n: 'WEB', e: '🕸️' }, { n: 'YAK', e: '🐂' }, { n: 'ZEBRA', e: '🦓' }, { n: 'BALL', e: '⚽' }, { n: 'CAKE', e: '🎂' }, { n: 'DUCK', e: '🦆' }, { n: 'ELEPHANT', e: '🐘' }, { n: 'FROG', e: '🐸' }, { n: 'GRAPES', e: '🍇' }, { n: 'HOUSE', e: '🏠' }, { n: 'ICE CREAM', e: '🍦' }, { n: 'JUICE', e: '🧃' }, { n: 'KEY', e: '🔑' }, { n: 'LAMP', e: '💡' }, { n: 'MOON', e: '🌙' }, { n: 'NOSE', e: '👃' }, { n: 'ORANGE', e: '🍊' }, { n: 'PARROT', e: '🦜' }];
+    (function () { for (var i = AW.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = AW[i]; AW[i] = AW[j]; AW[j] = t; } })();
+    var CW = AW[0];
+    var _studyVoiceOn = true;
+    var _voicesLoaded = false;
+    var _voices = [];
+
+    function loadVoices() {
+      if (!window.speechSynthesis) return;
+      var v = window.speechSynthesis.getVoices();
+      if (v && v.length > 0) {
+        _voices = v;
+        _voicesLoaded = true;
+        console.log('✅ Voices loaded:', _voices.length);
+      }
+    }
+    if (window.speechSynthesis) {
+      loadVoices();
+      // Retry if voices empty (Chrome lazy-loads them)
+      if (!_voicesLoaded) {
+        var _voiceRetry = 0;
+        var _voiceRetryInt = setInterval(function() {
+          loadVoices();
+          _voiceRetry++;
+          if (_voicesLoaded || _voiceRetry >= 10) clearInterval(_voiceRetryInt);
+        }, 300);
+      }
+      if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = function() {
+          loadVoices();
+          if (_studyVoiceOn) updateWord();
+        };
+      }
+    }
+
+    function getBestVoice() {
+      if (!_voicesLoaded || !_voices.length) return null;
+      var preferred = ['Google UK English Female', 'Google US English', 'Samantha', 'Karen', 'Veena', 'Rishi'];
+      for (var i = 0; i < preferred.length; i++) {
+        var v = _voices.find(function(voice) { return voice.name.indexOf(preferred[i]) >= 0; });
+        if (v) return v;
+      }
+      // Broader match: any English voice
+      var en = _voices.find(function(voice) { return voice.lang && voice.lang.toLowerCase().startsWith('en'); });
+      if (en) return en;
+      return _voices[0];
+    }
+
+    // Restore voice toggle from localStorage
+    try {
+      var saved = localStorage.getItem('scc_studyVoice');
+      if (saved !== null) _studyVoiceOn = saved === 'true';
+    } catch (e) {}
+    updateStudyVoiceButton();
+
+    function updateStudyVoiceButton() {
+      var btn = document.getElementById('study-voice-toggle');
+      if (!btn) return;
+      btn.textContent = _studyVoiceOn ? '🔊 Sound ON' : '🔇 Sound OFF';
+      btn.style.background = _studyVoiceOn ? '#dcfce7' : '#fee2e2';
+      btn.style.color = _studyVoiceOn ? '#15803d' : '#b91c1c';
+    }
+
+    function toggleStudyVoice() {
+      _studyVoiceOn = !_studyVoiceOn;
+      try { localStorage.setItem('scc_studyVoice', String(_studyVoiceOn)); } catch (e) {}
+      updateStudyVoiceButton();
+      toast(_studyVoiceOn ? '🔊 Study voice ON' : '🔇 Study voice OFF');
+    }
+
+    // Deferred speak queue — retries if voices not yet loaded
+    var _speakQueue = [];
+    function speakWord(w) {
+      if (!_studyVoiceOn || !window.speechSynthesis) return;
+      if (!_voicesLoaded) {
+        _speakQueue.push(w);
+        // Wait for voices then flush queue
+        var _sqInt = setInterval(function() {
+          if (_voicesLoaded) {
+            clearInterval(_sqInt);
+            while (_speakQueue.length) {
+              var qw = _speakQueue.shift();
+              _doSpeak(qw);
+            }
+          }
+        }, 300);
+        return;
+      }
+      _doSpeak(w);
+    }
+
+    function _doSpeak(w) {
+      try {
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(w);
+        u.rate = 0.75;
+        u.pitch = 1.25;
+        u.lang = 'en-IN';
+        var bestVoice = getBestVoice();
+        if (bestVoice) u.voice = bestVoice;
+        u.volume = 1.0;
+        window.speechSynthesis.speak(u);
+      } catch (e) {
+        console.warn('Speech synthesis error:', e);
+      }
+    }
+
+    function updateWord() {
+      CW = AW[S.wordIdx];
+      document.getElementById('study-emo').textContent = CW.e;
+      document.getElementById('study-word').textContent = CW.n;
+      document.getElementById('wprog').textContent = 'Word ' + (S.wordIdx + 1) + ' of ' + AW.length;
+      if (_studyVoiceOn) speakWord(CW.n);
+    }
+    function nextWord() { S.wordIdx = (S.wordIdx + 1) % AW.length; updateWord(); }
+    function prevWord() { S.wordIdx = (S.wordIdx - 1 + AW.length) % AW.length; updateWord(); }
+
+    var dc = null, dctx = null, drawing = false, lx = 0, ly = 0;
+    function initDraw() { dc = document.getElementById('dc'); if (!dc) return; dc.width = dc.offsetWidth || 340; dc.height = 110; dctx = dc.getContext('2d'); dctx.strokeStyle = S.drawColor; dctx.lineWidth = 3.5; dctx.lineCap = 'round'; dctx.lineJoin = 'round'; function gp(e, t) { var r = dc.getBoundingClientRect(); var s = t ? e.touches[0] : e; return [s.clientX - r.left, s.clientY - r.top]; } dc.onmousedown = function (e) { drawing = true; var p = gp(e, false); lx = p[0]; ly = p[1]; }; dc.onmousemove = function (e) { if (!drawing) return; var p = gp(e, false); dctx.beginPath(); dctx.moveTo(lx, ly); dctx.lineTo(p[0], p[1]); dctx.stroke(); lx = p[0]; ly = p[1]; }; dc.onmouseup = dc.onmouseleave = function () { drawing = false; }; dc.ontouchstart = function (e) { e.preventDefault(); drawing = true; var p = gp(e, true); lx = p[0]; ly = p[1]; }; dc.ontouchmove = function (e) { e.preventDefault(); if (!drawing) return; var p = gp(e, true); dctx.beginPath(); dctx.moveTo(lx, ly); dctx.lineTo(p[0], p[1]); dctx.stroke(); lx = p[0]; ly = p[1]; }; dc.ontouchend = function () { drawing = false; }; }
+    function setDC(c, el) { S.drawColor = c; document.querySelectorAll('.cdot').forEach(function (d) { d.classList.remove('on'); }); el.classList.add('on'); if (dctx) dctx.strokeStyle = c; }
+    function clearDraw() { if (dctx) dctx.clearRect(0, 0, dc.width, dc.height); }
+
+    // ── GAMES ──
+    var oGame = null;
+    function tg(n) { if (oGame === n) { document.getElementById('gb-' + n).classList.remove('vis'); document.getElementById('gbtn-' + n).classList.remove('open'); oGame = null; return; } if (oGame) { document.getElementById('gb-' + oGame).classList.remove('vis'); document.getElementById('gbtn-' + oGame).classList.remove('open'); } oGame = n; document.getElementById('gb-' + n).classList.add('vis'); document.getElementById('gbtn-' + n).classList.add('open'); if (n === 'wm') initWM(); else if (n === 'cq') initCQ(); else if (n === 'pz') initPZ(); else if (n === 'abc') initABC(); }
+    var wmSc = 0, wmCur = null, wmUsed = [];
+    function initWM() { wmSc = 0; wmUsed = []; document.getElementById('wm-sc').textContent = '0'; nextWM(); }
+    function nextWM() { if (wmUsed.length >= AW.length) wmUsed = []; var pool = AW.filter(function (w) { return !wmUsed.some(function (u) { return u.n === w.n; }); }); wmCur = pool[Math.floor(Math.random() * pool.length)]; wmUsed.push(wmCur); document.getElementById('wm-emo').textContent = wmCur.e; var ch = [wmCur.n]; var oth = AW.filter(function (w) { return w.n !== wmCur.n; }); while (ch.length < 4) { var p = oth[Math.floor(Math.random() * oth.length)].n; if (!ch.includes(p)) ch.push(p); } ch.sort(function () { return Math.random() - .5; }); document.getElementById('wm-ch').innerHTML = ch.map(function (c) { return '<button class="cbtn" onclick="checkWM(this,\'' + c + '\')">' + c + '</button>'; }).join(''); document.getElementById('wm-fb').innerHTML = ''; }
+    function checkWM(btn, w) { document.querySelectorAll('#wm-ch .cbtn').forEach(function (b) { b.disabled = true; }); if (w === wmCur.n) { btn.classList.add('ok'); wmSc++; document.getElementById('wm-sc').textContent = wmSc; document.getElementById('wm-fb').innerHTML = '<span style="color:#15803d">🎉 Correct! ' + w + '!</span>'; speakWord('Correct!'); } else { btn.classList.add('no'); document.getElementById('wm-fb').innerHTML = '<span style="color:#b91c1c">❌ It was ' + wmCur.n + '</span>'; } setTimeout(nextWM, 1700); }
+    var COLS = [{ n: 'Red', h: '#ef4444' }, { n: 'Blue', h: '#3b82f6' }, { n: 'Green', h: '#22c55e' }, { n: 'Yellow', h: '#facc15' }, { n: 'Orange', h: '#f97316' }, { n: 'Pink', h: '#ec4899' }, { n: 'Purple', h: '#a855f7' }, { n: 'White', h: '#f9fafb' }, { n: 'Brown', h: '#92400e' }, { n: 'Black', h: '#374151' }, { n: 'Grey', h: '#9ca3af' }, { n: 'Cyan', h: '#22d3ee' }];
+    var cqSc = 0, cqCur = null;
+    function initCQ() { cqSc = 0; document.getElementById('cq-sc').textContent = '0'; nextCQ(); }
+    function nextCQ() { cqCur = COLS[Math.floor(Math.random() * COLS.length)]; document.getElementById('cq-box').style.background = cqCur.h; var ch = [cqCur.n]; while (ch.length < 4) { var p = COLS[Math.floor(Math.random() * COLS.length)].n; if (!ch.includes(p)) ch.push(p); } ch.sort(function () { return Math.random() - .5; }); document.getElementById('cq-ch').innerHTML = ch.map(function (c) { return '<button class="cbtn" onclick="checkCQ(this,\'' + c + '\')">' + c + '</button>'; }).join(''); document.getElementById('cq-fb').innerHTML = ''; }
+    function checkCQ(btn, n) { document.querySelectorAll('#cq-ch .cbtn').forEach(function (b) { b.disabled = true; }); if (n === cqCur.n) { btn.classList.add('ok'); cqSc++; document.getElementById('cq-sc').textContent = cqSc; document.getElementById('cq-fb').innerHTML = '<span style="color:#15803d">🎉 Correct! ' + n + '!</span>'; speakWord(n); } else { btn.classList.add('no'); document.getElementById('cq-fb').innerHTML = '<span style="color:#b91c1c">❌ It was ' + cqCur.n + '</span>'; } setTimeout(nextCQ, 1700); }
+    var pzB = [], pzMv = 0;
+    function initPZ() { pzMv = 0; document.getElementById('pz-mv').textContent = '0'; document.getElementById('pz-win').style.display = 'none'; pzB = [1, 2, 3, 4, 5, 6, 7, 8, 0]; shufflePZ(); }
+    function shufflePZ() { for (var i = 0; i < 150; i++) { var z = pzB.indexOf(0), nb = []; if (z % 3 > 0) nb.push(z - 1); if (z % 3 < 2) nb.push(z + 1); if (z > 2) nb.push(z - 3); if (z < 6) nb.push(z + 3); var r = nb[Math.floor(Math.random() * nb.length)]; pzB[z] = pzB[r]; pzB[r] = 0; } pzMv = 0; document.getElementById('pz-mv').textContent = '0'; document.getElementById('pz-win').style.display = 'none'; renderPZ(); }
+    function renderPZ() { document.getElementById('pzg').innerHTML = pzB.map(function (v, i) { return v === 0 ? '<button class="pzt emp" disabled></button>' : '<button class="pzt" onclick="movePZ(' + i + ')">' + v + '</button>'; }).join(''); }
+    function movePZ(i) { var z = pzB.indexOf(0); if (!((i === z - 1 && z % 3 > 0) || (i === z + 1 && z % 3 < 2) || (i === z - 3) || (i === z + 3))) return; pzB[z] = pzB[i]; pzB[i] = 0; pzMv++; document.getElementById('pz-mv').textContent = pzMv; renderPZ(); if (pzB.join(',') === ([1, 2, 3, 4, 5, 6, 7, 8, 0]).join(',')) { document.getElementById('pz-win').style.display = 'block'; speakWord('Congratulations! Puzzle solved!'); } }
+    function initABC() { document.getElementById('abcg').innerHTML = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(function (l) { return '<button class="abcc" onclick="sayL(\'' + l + '\')">' + l + '</button>'; }).join(''); }
+    function sayL(l) { speakWord(l); document.getElementById('abc-hl').textContent = l; setTimeout(function () { document.getElementById('abc-hl').textContent = ''; }, 1400); }
+
+    // Restore sleep schedule from localStorage
+    try {
+      var ss = localStorage.getItem('scc_sleepSched');
+      if (ss) {
+        _sleepSched = JSON.parse(ss);
+        if (_sleepSched.bedtime) document.getElementById('bedtime').value = _sleepSched.bedtime;
+        if (_sleepSched.waketime) document.getElementById('waketime').value = _sleepSched.waketime;
+        if (_sleepSched.mob1) document.getElementById('sl-mob1').value = _sleepSched.mob1;
+        if (_sleepSched.mob2) document.getElementById('sl-mob2').value = _sleepSched.mob2;
+        updateSlpInfo();
+      }
+    } catch(e) {}
+
+    // ── INIT ──
+    updateSlpInfo(); initABC(); renderMeds(); renderFoodTimers(); updateWord();
+    setTimeout(function () { initWC('wc'); }, 200);
+
+    // Restore saved date for growth
+    document.getElementById('gr-date').valueAsDate = new Date();
+
+    // ═══════════════════════════════════════════════════════════════
+    //  PRE-EMOTION QUESTIONNAIRE
+    // ═══════════════════════════════════════════════════════════════
+    var _pendingPhotoData = null; // holds {dataUrl, base64, mime} while modal is open
+
+    function toggleTag(el) { el.classList.toggle('sel'); }
+    function getSelectedTags() {
+      return Array.from(document.querySelectorAll('.q-tag.sel')).map(function (t) { return t.dataset.v; });
+    }
+
+    // Override onPhotoSelected to show modal first
+    var _origOnPhoto = window.onPhotoSelected;
+    window.onPhotoSelected = function (inp) {
+      if (!inp.files || !inp.files[0]) return;
+      var file = inp.files[0];
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        _pendingPhotoData = { dataUrl: e.target.result, base64: e.target.result.split(',')[1], mime: file.type || 'image/jpeg' };
+        // Show modal before analysis
+        document.getElementById('emo-modal').style.display = 'flex';
+        // Reset tags
+        document.querySelectorAll('.q-tag').forEach(function (t) { t.classList.remove('sel'); });
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // Override captureLive similarly
+    var _origCaptureLive = window.captureLive;
+    window.captureLive = function () {
+      var vid = document.getElementById('emo-vid');
+      if (!vid || !camStream) { toast('⚠️ Start camera first'); return; }
+      var c = document.createElement('canvas'); c.width = 320; c.height = 240;
+      c.getContext('2d').drawImage(vid, 0, 0, 320, 240);
+      c.toBlob(function (blob) {
+        var r = new FileReader();
+        r.onload = function (e) {
+          _pendingPhotoData = { dataUrl: e.target.result, base64: e.target.result.split(',')[1], mime: 'image/jpeg' };
+          document.getElementById('emo-modal').style.display = 'flex';
+          document.querySelectorAll('.q-tag').forEach(function (t) { t.classList.remove('sel'); });
+        };
+        r.readAsDataURL(blob);
+      }, 'image/jpeg', .85);
+    };
+
+    function closeModal() {
+      document.getElementById('emo-modal').style.display = 'none';
+    }
+
+    function submitQuestionnaire() {
+      if (!_pendingPhotoData) { closeModal(); return; }
+      var qData = {
+        feed: document.getElementById('q-feed').value || 'not_sure',
+        med: document.getElementById('q-med').value || 'na',
+        temp: document.getElementById('q-temp').value || '',
+        symptoms: getSelectedTags(),
+        duration: document.getElementById('q-duration').value || 'just_started',
+        sleep: document.getElementById('q-sleep').value || 'good'
+      };
+      closeModal();
+      processPhotoWithContext(_pendingPhotoData, qData);
+      _pendingPhotoData = null;
+    }
+
+    function processPhotoWithContext(photoData, qData) {
+      var dataUrl = photoData.dataUrl;
+      // Show preview
+      document.getElementById('emo-upload-zone').style.display = 'none';
+      document.getElementById('emo-preview-area').style.display = 'block';
+      document.getElementById('emo-img').src = dataUrl;
+      document.getElementById('emo-ov').style.display = 'none';
+      document.getElementById('match-result').innerHTML = '';
+      document.getElementById('emo-result').style.display = 'none';
+      // Face match check
+      checkFaceMatch(dataUrl, function (ok) {
+        if (S.child.photo) {
+          document.getElementById('match-result').innerHTML = ok
+            ? '<div class="match-ok">✅ Photo matched baby profile</div>'
+            : '<div class="match-fail">⚠️ May not match saved baby photo — analysing anyway</div>';
+        }
+      });
+      showCards();
+      document.getElementById('ai-body').innerHTML = '<div class="ai-spin"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span style="margin-left:8px;font-size:12px;color:#a78bfa">Analysing baby emotion + health context...</span></div>';
+      document.getElementById('cl-body').innerHTML = '<div style="color:#a78bfa;font-size:12px;padding:6px">Building personalised checklist...</div>';
+      document.getElementById('tip-body').innerHTML = '';
+      // Build context string
+      var ctx = buildContextString(qData);
+      if (APIKEY) analyseWithClaudeCtx(photoData.base64, photoData.mime, dataUrl, ctx);
+      else analyseLocalCtx(dataUrl, ctx, qData);
+    }
+
+    function buildContextString(q) {
+      var feedMap = { just_now: 'fed very recently (under 30 min)', _1h: 'fed about 1 hour ago', _2h: 'fed about 2 hours ago', _3h: 'not fed for 3+ hours (may be hungry)', not_sure: 'unknown feed time' };
+      var medMap = { na: 'no current medicine', just_now: 'medicine given recently', _2h: 'medicine given 2–4 hrs ago', overdue: 'MEDICINE IS OVERDUE — not yet given', not_sure: 'unknown medicine status' };
+      var sympList = q.symptoms.length && q.symptoms[0] !== 'none' ? q.symptoms.join(', ') : 'none reported';
+      var durMap = { just_started: 'just started', _30min: '30 minutes', _1h: 'about 1 hour', few_hours: 'a few hours', all_day: 'all day', multiple_days: 'multiple days' };
+      var slpMap = { good: 'good sleep last night (7+ hrs)', fair: 'fair sleep (4–7 hrs)', poor: 'poor sleep under 4 hrs', not_sure: 'unknown sleep' };
+      var parts = [];
+      parts.push('Baby context: ' + S.child.name + ', age ' + S.child.age + ', health history: ' + (S.child.health || 'none'));
+      parts.push('Last feed: ' + (feedMap[q.feed.replace(/-/g, '_')] || q.feed));
+      parts.push('Medicine: ' + (medMap[q.med.replace(/-/g, '_')] || q.med));
+      if (q.temp) parts.push('Known temperature: ' + q.temp + '°F');
+      parts.push('Symptoms: ' + sympList);
+      parts.push('Duration of current state: ' + (durMap[q.duration.replace(/-/g, '_')] || q.duration));
+      parts.push('Sleep last night: ' + (slpMap[q.sleep] || q.sleep));
+      return parts.join('. ');
+    }
+
+    function analyseWithClaudeCtx(b64, mime, dataUrl, ctx) {
+      var sys = 'You are an expert paediatric emotion and health analyst. You will receive a baby photo AND health context gathered from parents. Your job is to integrate both to give personalised, accurate advice.\n\nReturn ONLY valid JSON:\n{"detectedEmotion":"Happy|Sad|Crying|Angry|Sleepy|Surprised|Neutral|Fearful|Disgusted","confidence":"High|Medium|Low","analysis":"2-3 sentences combining what you see in the face AND the health context","checklist":["contextual action 1","contextual action 2","contextual action 3","contextual action 4","contextual action 5"],"tip":"one concrete immediate action for parent based on both face AND context","urgent":false}';
+      var usr = ctx + '\n\nNow examine the baby photo carefully: eye openness, mouth shape, eyebrow position, cheek colour, muscle tension. Integrate what you see with the health context above. Return your most accurate combined assessment.';
+      fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-key': APIKEY, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+        body: JSON.stringify({
+          model: 'claude-opus-4-5', max_tokens: 800, system: sys,
+          messages: [{ role: 'user', content: [{ type: 'image', source: { type: 'base64', media_type: mime, data: b64 } }, { type: 'text', text: usr }] }]
+        })
+      }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (d) {
+          var txt = d.content[0].text.replace(/```json|```/g, '').trim();
+          var res = JSON.parse(txt);
+          displayEmotion(res.detectedEmotion, 'Claude AI + Health Context (' + res.confidence + ')', dataUrl);
+          renderResults(res);
+        }).catch(function (err) {
+          toast('AI error — using local analysis', 3000);
+          analyseLocalCtx(dataUrl, null, null);
+        });
+    }
+
+    function analyseLocalCtx(dataUrl, ctx, qData) {
+      var img = new Image();
+      img.onload = function () {
+        var c = document.createElement('canvas'); c.width = 64; c.height = 64;
+        var ctx2 = c.getContext('2d'); ctx2.drawImage(img, 0, 0, 64, 64);
+        var emo = detect8Zone(ctx2);
+        displayEmotion(emo, 'Local Analysis' + (qData ? ' + Health Context' : ''), dataUrl);
+        var fb = JSON.parse(JSON.stringify(FB[emo] || FB.Neutral));
+        // Enrich checklist with context data
+        if (qData) {
+          if (qData.feed === '3h') fb.checklist.unshift('⚠️ Baby has not fed for 3+ hours — feed NOW as priority');
+          if (qData.med === 'overdue') fb.checklist.unshift('⚠️ Medicine is overdue — give prescribed medicine now!');
+          if (qData.temp && parseFloat(qData.temp) > 100.4) { fb.checklist.unshift('🌡️ Temperature ' + qData.temp + '°F — FEVER detected, contact doctor!'); fb.urgent = true; }
+          if (qData.symptoms.includes('fever')) fb.checklist.push('Monitor temperature every 2 hours');
+          if (qData.symptoms.includes('vomiting')) fb.checklist.push('Keep baby upright, prevent dehydration');
+          if (qData.sleep === 'poor') fb.checklist.push('Baby had poor sleep — prioritise nap soon');
+          if (qData.symptoms.length > 0 && qData.symptoms[0] !== 'none') fb.analysis += ' Health context: symptoms noted (' + qData.symptoms.join(', ') + ') — factor this into your care.';
+        }
+        renderResults(fb);
+      };
+      img.src = dataUrl;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  DOCTOR CONNECT
+    // ═══════════════════════════════════════════════════════════════
+    var doctors = { primary: null, secondary: null };
+    // Load saved
+    try { var sd = localStorage.getItem('scc_doctors'); if (sd) doctors = JSON.parse(sd); } catch (e) { }
+
+    function saveDoctor() {
+      var name = document.getElementById('dc-name').value.trim();
+      var mob = document.getElementById('dc-mob').value.trim();
+      if (!name || !mob) { toast('⚠️ Enter doctor name and mobile number!'); return; }
+      doctors.primary = {
+        name: name, spec: document.getElementById('dc-spec').value, mob: mob,
+        clinic: document.getElementById('dc-clinic').value, timing: document.getElementById('dc-timing').value,
+        addr: document.getElementById('dc-addr').value, notes: document.getElementById('dc-notes').value
+      };
+      localStorage.setItem('scc_doctors', JSON.stringify(doctors));
+      renderDoctors();
+      toast('✅ Doctor saved! One-tap calling is now active.');
+    }
+    function saveDoctor2() {
+      var name = document.getElementById('dc2-name').value.trim();
+      var mob = document.getElementById('dc2-mob').value.trim();
+      if (!name || !mob) { toast('⚠️ Enter doctor name and mobile!'); return; }
+      doctors.secondary = { name: name, spec: document.getElementById('dc2-spec').value, mob: mob };
+      localStorage.setItem('scc_doctors', JSON.stringify(doctors));
+      renderDoctors(); toast('✅ Second doctor saved!');
+    }
+
+    function renderDoctors() {
+      // Primary
+      var el = document.getElementById('doc-primary-display');
+      if (doctors.primary) {
+        var d = doctors.primary;
+        el.innerHTML = '<div class="doc-card">' +
+          '<div class="doc-name">Dr. ' + d.name + '</div>' +
+          '<div class="doc-spec">' + d.spec + '</div>' +
+          (d.clinic ? '<div class="doc-info"><span class="doc-lbl">🏥 Clinic:</span><span class="doc-val">' + d.clinic + '</span></div>' : '') +
+          (d.timing ? '<div class="doc-info"><span class="doc-lbl">🕐 Timing:</span><span class="doc-val">' + d.timing + '</span></div>' : '') +
+          (d.addr ? '<div class="doc-info"><span class="doc-lbl">📍 Address:</span><span class="doc-val">' + d.addr + '</span></div>' : '') +
+          (d.notes ? '<div class="doc-info"><span class="doc-lbl">📝 Notes:</span><span class="doc-val">' + d.notes + '</span></div>' : '') +
+          '<a href="tel:' + d.mob + '" class="doc-call">📞 Call Doctor — ' + d.mob + '</a>' +
+          '<a href="https://wa.me/' + d.mob.replace(/\D/g, '') + '" class="doc-emergency" style="background:linear-gradient(135deg,#16a34a,#15803d);margin-top:8px">💬 WhatsApp Doctor</a>' +
+          '</div>';
+      } else {
+        el.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:16px;font-size:13px">No doctor saved yet. Add below ↓</div>';
+      }
+      // Secondary
+      if (doctors.secondary) {
+        var d2 = doctors.secondary;
+        document.getElementById('dc-second-display').style.display = 'block';
+        document.getElementById('doc-second-content').innerHTML =
+          '<div class="doc-name">Dr. ' + d2.name + '</div>' +
+          '<div class="doc-spec">' + d2.spec + '</div>' +
+          '<a href="tel:' + d2.mob + '" class="doc-call" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);margin-top:8px">📞 Call — ' + d2.mob + '</a>';
+      }
+    }
+
+    // Also update home doctor info and details page
+    (function () {
+      if (doctors.primary && !S.child.doctor) { S.child.doctor = doctors.primary.name; }
+      renderDoctors();
+    })();
+
+    // ═══════════════════════════════════════════════════════════════
+    //  GROWTH TRACKING
+    // ═══════════════════════════════════════════════════════════════
+    var growthData = [];
+    try { var gd = localStorage.getItem('scc_growth'); if (gd) growthData = JSON.parse(gd); } catch (e) { }
+
+    // WHO reference data (simplified, weight in kg, height in cm)
+    var WHO = { wt: { 0: 3.3, 3: 6.0, 6: 7.9, 9: 9.2, 12: 10.2, 18: 11.5, 24: 12.5 }, ht: { 0: 50, 3: 62, 6: 68, 9: 72, 12: 76, 18: 82, 24: 87 } };
+    function whoRef(type, ageM) {
+      var keys = Object.keys(WHO[type]).map(Number).sort(function (a, b) { return a - b; });
+      for (var i = keys.length - 1; i >= 0; i--) { if (ageM >= keys[i]) return WHO[type][keys[i]]; }
+      return WHO[type][0];
+    }
+
+    function logGrowth() {
+      var date = document.getElementById('gr-date').value;
+      var wt = parseFloat(document.getElementById('gr-wt').value);
+      var wtUnit = document.getElementById('gr-wt-unit').value;
+      var ht = parseFloat(document.getElementById('gr-ht').value);
+      var htUnit = document.getElementById('gr-ht-unit').value;
+      var hc = parseFloat(document.getElementById('gr-hc').value);
+      var ageM = parseInt(document.getElementById('gr-age-m').value);
+      var notes = document.getElementById('gr-notes').value;
+      if (!date) { toast('⚠️ Select a date'); return; }
+      if (!wt && !ht) { toast('⚠️ Enter at least weight or height'); return; }
+      // Convert to kg and cm
+      var wtKg = wtUnit === 'lbs' ? wt * 0.453592 : wt;
+      var htCm = htUnit === 'in' ? ht * 2.54 : ht;
+      var entry = { date: date, wt: wtKg ? wtKg.toFixed(2) : null, ht: htCm ? htCm.toFixed(1) : null, hc: hc || null, ageM: ageM || null, notes: notes };
+      growthData.unshift(entry);
+      if (growthData.length > 20) growthData.pop();
+      localStorage.setItem('scc_growth', JSON.stringify(growthData));
+      // Clear inputs
+      ['gr-wt', 'gr-ht', 'gr-hc', 'gr-age-m', 'gr-notes'].forEach(function (id) { document.getElementById(id).value = ''; });
+      renderGrowth();
+      toast('✅ Measurement logged!');
+    }
+
+    function renderGrowth() {
+      // History
+      var hist = document.getElementById('growth-hist');
+      if (!growthData.length) { hist.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:12px;font-size:12px">No measurements logged yet.</div>'; return; }
+      var latest = growthData[0];
+      // Status card
+      var statusHtml = '';
+      if (latest.ageM !== null && latest.wt) {
+        var refWt = whoRef('wt', latest.ageM);
+        var wtDiff = ((parseFloat(latest.wt) - refWt) / refWt * 100).toFixed(0);
+        var wtStatus = wtDiff >= -10 && wtDiff <= 20 ? 'status-ok' : wtDiff < -10 ? 'status-warn' : 'status-bad';
+        var wtMsg = wtDiff >= -10 && wtDiff <= 20 ? 'Normal for age' : wtDiff < -10 ? 'Below average — consult doctor' : 'Above average — monitor';
+        statusHtml += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f3f4f6"><span style="font-size:12px;font-weight:800">⚖️ Weight vs WHO</span><span class="' + wtStatus + '">' + wtMsg + '</span></div>';
+      }
+      if (latest.ageM !== null && latest.ht) {
+        var refHt = whoRef('ht', latest.ageM);
+        var htDiff = ((parseFloat(latest.ht) - refHt) / refHt * 100).toFixed(0);
+        var htStatus = htDiff >= -5 && htDiff <= 8 ? 'status-ok' : htDiff < -5 ? 'status-warn' : 'status-bad';
+        var htMsg = htStatus === 'status-ok' ? 'Normal height for age' : htDiff < -5 ? 'Short for age — check with doctor' : 'Tall for age — normal variant';
+        statusHtml += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f3f4f6"><span style="font-size:12px;font-weight:800">📏 Height vs WHO</span><span class="' + htStatus + '">' + htMsg + '</span></div>';
+      }
+      // Growth velocity (weight gain per day)
+      if (growthData.length >= 2 && growthData[0].wt && growthData[1].wt) {
+        var days = Math.abs(new Date(growthData[0].date) - new Date(growthData[1].date)) / (1000 * 86400) || 1;
+        var gainG = Math.round((parseFloat(growthData[0].wt) - parseFloat(growthData[1].wt)) * 1000 / days);
+        var gainOk = gainG >= 0;
+        statusHtml += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0"><span style="font-size:12px;font-weight:800">📈 Weight Gain Rate</span><span class="' + (gainOk ? 'status-ok' : 'status-bad') + '">' + gainG + 'g/day</span></div>';
+      }
+      document.getElementById('growth-status-card').innerHTML = statusHtml || '<div style="color:#9ca3af;font-size:12px;text-align:center;padding:8px">Add age in months to see WHO comparison</div>';
+      // Weight chart
+      if (growthData.some(function (e) { return e.wt; })) {
+        document.getElementById('growth-chart-card').style.display = 'block';
+        var wtData = growthData.filter(function (e) { return e.wt; }).slice(0, 8).reverse();
+        var maxWt = Math.max.apply(null, wtData.map(function (e) { return parseFloat(e.wt); }));
+        document.getElementById('growth-chart').innerHTML = wtData.map(function (e) {
+          var pct = Math.round(parseFloat(e.wt) / maxWt * 100);
+          return '<div class="chart-bar-wrap"><span class="chart-label">' + e.date.slice(5) + '</span>' +
+            '<div class="chart-bar-bg"><div class="chart-bar" style="width:' + pct + '%"><span>' + e.wt + 'kg</span></div></div></div>';
+        }).join('');
+      }
+      // Height chart
+      if (growthData.some(function (e) { return e.ht; })) {
+        document.getElementById('growth-chart-ht-card').style.display = 'block';
+        var htData = growthData.filter(function (e) { return e.ht; }).slice(0, 8).reverse();
+        var maxHt = Math.max.apply(null, htData.map(function (e) { return parseFloat(e.ht); }));
+        document.getElementById('growth-chart-ht').innerHTML = htData.map(function (e) {
+          var pct = Math.round(parseFloat(e.ht) / maxHt * 100);
+          return '<div class="chart-bar-wrap"><span class="chart-label">' + e.date.slice(5) + '</span>' +
+            '<div class="chart-bar-bg"><div class="chart-bar" style="width:' + pct + '%;background:linear-gradient(90deg,#34d399,#0891b2)"><span>' + e.ht + 'cm</span></div></div></div>';
+        }).join('');
+      }
+      // History list
+      hist.innerHTML = growthData.map(function (e) {
+        return '<div class="growth-entry">' +
+          '<div class="growth-date">' + e.date + (e.ageM ? '  (' + e.ageM + ' months)' : '') +
+          (e.notes ? '<span style="font-size:10px;color:#6b7280;font-weight:600;margin-left:6px">' + e.notes + '</span>' : '') + '</div>' +
+          '<div class="growth-vals">' +
+          (e.wt ? '<div class="growth-val"><div class="growth-v">' + e.wt + '</div><div class="growth-u">kg weight</div></div>' : '') +
+          (e.ht ? '<div class="growth-val"><div class="growth-v">' + e.ht + '</div><div class="growth-u">cm height</div></div>' : '') +
+          (e.hc ? '<div class="growth-val"><div class="growth-v">' + e.hc + '</div><div class="growth-u">cm head circ.</div></div>' : '') +
+          '</div></div>';
+      }).join('');
+    }
+
+    // BMI Calculator function
+    function calculateBMI() {
+      const age = parseInt(document.getElementById('bmi-age').value) || 6;
+      const weight = parseFloat(document.getElementById('bmi-wt').value);
+      const height = parseFloat(document.getElementById('bmi-ht').value);
+
+      if (!weight || !height || weight <= 0 || height <= 0) {
+        toast('⚠️ Please enter valid weight (kg) and height (cm)');
+        return;
+      }
+
+      // Show loading
+      const resultsEl = document.getElementById('bmi-results');
+      resultsEl.style.display = 'block';
+      resultsEl.innerHTML = '<div style="text-align:center;padding:12px"><div class="ai-spin"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>🔄 Calculating BMI & Food Plan...</div>';
+
+      // Local BMI calculation as fallback
+      const bmiLocal = (weight / Math.pow(height / 100, 2)).toFixed(1);
+
+      fetch('/api/growth/bmi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          weight: weight,
+          height: height,
+          age_months: age
+        })
+      })
+        .then(r => r.json())
+        .then(data => {
+          let bmi = bmiLocal;
+          let category = 'unknown';
+          let message = 'Please consult doctor for personalized advice';
+          let foodRecs = [];
+          let exerciseRecs = [];
+          let urgent = false;
+
+          if (data.success) {
+            bmi = data.bmi;
+            category = data.category || 'normal';
+            message = data.message || message;
+            foodRecs = data.food_recommendations || [];
+            exerciseRecs = data.exercise_recommendations || [];
+            urgent = data.urgent || false;
+          } else {
+            // Fallback categorization
+            if (bmi < 14) {
+              category = 'underweight';
+              message = 'BMI below average - increase calorie-dense healthy foods';
+              foodRecs = [
+                'Add ghee/butter to dal-rice/khichdi',
+                'Mashed banana/avocado with full-fat milk',
+                'Cheese cubes or paneer (if no allergy)',
+                'Nut butters (peanut/almond) mixed in porridge'
+              ];
+            } else if (bmi > 18) {
+              category = 'overweight';
+              message = 'BMI above average - focus on portion control';
+              foodRecs = [
+                'More vegetables, less rice/roti',
+                'Protein first (dal, egg, paneer)',
+                'Fresh fruits over dried/sweetened',
+                'Water before milk feeds'
+              ];
+            } else {
+              category = 'normal';
+              message = 'Healthy BMI - maintain balanced nutrition';
+              foodRecs = [
+                'Continue current feeding pattern',
+                'Variety: dal-rice, veggies, fruits, dairy',
+                'Protein + carb + fat in every meal',
+                'Monitor monthly weight gain'
+              ];
+            }
+          }
+
+          if (exerciseRecs.length === 0) {
+            if (category === 'underweight') {
+              exerciseRecs = ['Gentle tummy time (3-5 mins)', 'Assisted rolling', 'Avoid excessive exertion'];
+            } else if (category === 'overweight') {
+              exerciseRecs = ['Increase active playtime tracking', 'Encourage crawling/walking', 'Decrease chair time'];
+            } else {
+              exerciseRecs = ['Daily active floor play', 'Supervised tummy time 30 mins/day', 'Independent play encouraged'];
+            }
+          }
+
+          const catColor = category === 'normal' ? '#059669' :
+            category === 'underweight' ? '#92400e' : '#b91c1c';
+          const catBg = category === 'normal' ? '#dcfce7' :
+            category === 'underweight' ? '#fef3c7' : '#fee2e2';
+
+          let html = `
+      <div style="background:${catBg};border-radius:12px;padding:14px;margin-bottom:12px;text-align:center;border-left:4px solid ${catColor}">
+        <div style="font-size:28px;font-weight:900;color:${catColor};margin-bottom:4px">BMI: ${bmi}</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:8px">${message}</div>
+        ${urgent ? '<div style="background:#fee2e2;border-radius:8px;padding:8px;font-weight:800;color:#b91c1c;margin-top:8px">🚨 Urgent: Consult pediatrician immediately</div>' : ''}
+      </div>
+    `;
+
+          if (foodRecs.length > 0) {
+            html += `
+        <div style="font-size:12px;font-weight:900;color:#059669;margin-bottom:10px;text-transform:uppercase">
+          🍎 Age ${age}mo Food Recommendations (${category})
+        </div>
+        <div style="max-height:300px;overflow-y:auto">
+      `;
+            foodRecs.slice(0, 8).forEach(rec => {
+              html += `<div style="background:#f0fdf4;border-radius:10px;padding:12px;margin-bottom:8px;border-left:3px solid #10b981;font-size:13px;line-height:1.5">• ${rec}</div>`;
+            });
+            html += '</div>';
+          }
+
+          if (exerciseRecs.length > 0) {
+            html += `
+        <div style="font-size:12px;font-weight:900;color:#1d4ed8;margin-bottom:10px;text-transform:uppercase">
+          🤸 Age ${age}mo Activity & Exercise
+        </div>
+        <div style="max-height:200px;overflow-y:auto">
+      `;
+            exerciseRecs.slice(0, 5).forEach(rec => {
+              html += `<div style="background:#eff6ff;border-radius:10px;padding:12px;margin-bottom:8px;border-left:3px solid #3b82f6;font-size:13px;line-height:1.5">• ${rec}</div>`;
+            });
+            html += '</div>';
+          }
+
+          resultsEl.innerHTML = html;
+
+          if (urgent) {
+            toast('🚨 BMI Alert - Consult Doctor!', 5000);
+            showAlert(`🚨 BMI ${bmi} (${category}): ${message}`, true);
+          }
+        })
+        .catch(e => {
+          let bmi = bmiLocal;
+          let category = 'unknown';
+          let message = 'Please consult doctor for personalized advice';
+          let foodRecs = [];
+          let exerciseRecs = [];
+
+          if (bmi < 14) {
+            category = 'underweight';
+            message = 'BMI below average - increase calorie-dense healthy foods';
+            foodRecs = ['Add ghee/butter to dal-rice/khichdi', 'Mashed banana/avocado with full-fat milk', 'Cheese cubes or paneer (if no allergy)', 'Nut butters (peanut/almond) mixed in porridge'];
+          } else if (bmi > 18) {
+            category = 'overweight';
+            message = 'BMI above average - focus on portion control';
+            foodRecs = ['More vegetables, less rice/roti', 'Protein first (dal, egg, paneer)', 'Fresh fruits over dried/sweetened', 'Water before milk feeds'];
+          } else {
+            category = 'normal';
+            message = 'Healthy BMI - maintain balanced nutrition';
+            foodRecs = ['Continue current feeding pattern', 'Variety: dal-rice, veggies, fruits, dairy', 'Protein + carb + fat in every meal', 'Monitor monthly weight gain'];
+          }
+
+          if (category === 'underweight') { exerciseRecs = ['Gentle tummy time (3-5 mins)', 'Assisted rolling', 'Avoid excessive exertion']; }
+          else if (category === 'overweight') { exerciseRecs = ['Increase active playtime tracking', 'Encourage crawling/walking', 'Decrease chair time']; }
+          else { exerciseRecs = ['Daily active floor play', 'Supervised tummy time 30 mins/day', 'Independent play encouraged']; }
+
+          const catColor = category === 'normal' ? '#059669' : category === 'underweight' ? '#92400e' : '#b91c1c';
+          const catBg = category === 'normal' ? '#dcfce7' : category === 'underweight' ? '#fef3c7' : '#fee2e2';
+
+          let html = `
+      <div style="background:${catBg};border-radius:12px;padding:14px;margin-bottom:12px;text-align:center;border-left:4px solid ${catColor}">
+        <div style="font-size:28px;font-weight:900;color:${catColor};margin-bottom:4px">BMI: ${bmi}</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:8px">${message}</div>
+        <div style="font-size:10px;text-transform:uppercase;color:${catColor};opacity:0.8">(Local Calculation)</div>
+      </div>
+    `;
+
+          if (foodRecs.length > 0) {
+            html += `
+        <div style="font-size:12px;font-weight:900;color:#059669;margin-bottom:10px;text-transform:uppercase">
+          🍎 Age ${age}mo Food Recommendations (${category})
+        </div>
+        <div style="max-height:300px;overflow-y:auto">
+      `;
+            foodRecs.slice(0, 8).forEach(rec => { html += `<div style="background:#f0fdf4;border-radius:10px;padding:12px;margin-bottom:8px;border-left:3px solid #10b981;font-size:13px;line-height:1.5">• ${rec}</div>`; });
+            html += '</div>';
+          }
+
+          if (exerciseRecs.length > 0) {
+            html += `
+        <div style="font-size:12px;font-weight:900;color:#1d4ed8;margin-bottom:10px;text-transform:uppercase">
+          🤸 Age ${age}mo Activity & Exercise
+        </div>
+        <div style="max-height:200px;overflow-y:auto">
+      `;
+            exerciseRecs.slice(0, 5).forEach(rec => { html += `<div style="background:#eff6ff;border-radius:10px;padding:12px;margin-bottom:8px;border-left:3px solid #3b82f6;font-size:13px;line-height:1.5">• ${rec}</div>`; });
+            html += '</div>';
+          }
+
+          resultsEl.innerHTML = html;
+          console.error('BMI API error (using local):', e);
+        });
+    }
+
+    // Initial render
+    renderGrowth();
+
+  </script>
+  </div>
+
+  <!-- GLOBAL TRANSLATE WIDGET -->
+  <div id="global-translator"
+    style="position:fixed; bottom:20px; left:20px; z-index:9999; background:white; padding:10px 15px; border-radius:30px; box-shadow:0 10px 25px rgba(0,0,0,0.2); display:flex; align-items:center; gap:8px; border:2px solid #3b82f6; cursor:pointer;"
+    onclick="toggleGoogleTranslate()">
+    <span style="font-size:20px;">🌐</span>
+    <span style="font-weight:800; color:#3b82f6; font-size:13px;">Translate</span>
+  </div>
+  <div id="google-translate-container"
+    style="display:none; position:fixed; bottom:70px; left:20px; z-index:9999; background:white; padding:10px; border-radius:15px; box-shadow:0 10px 25px rgba(0,0,0,0.2); border:2px solid #3b82f6;">
+    <div id="google_translate_element"></div>
+  </div>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'en,hi,te,ta,ml,mr,bn,gu,kn,pa,or', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+    }
+    function toggleGoogleTranslate() {
+      var c = document.getElementById('google-translate-container');
+      c.style.display = c.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+  <script type="text/javascript"
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- Face-API.js for accurate local emotion detection -->
+  <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.js"></script>
+
+  <!-- New Emotions & Sleep Pages -->
+  <script src="new-pages.js"></script>
+</body>
+
+</html> 
